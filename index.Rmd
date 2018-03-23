@@ -1,0 +1,89 @@
+--- 
+title: "The lessons I learned in using R"
+author: "Lingyun Zhang"
+date: "2018-3-23"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+link-citations: yes
+links-as-notes: true
+colorlinks: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- # {-} -->
+
+
+<!-- <!-- ![](pictures/rainbow.png) --> -->
+<!-- <img src="pictures/office_buildings.png" style="width: 125%; height: 125%"/> -->
+
+
+# Preface {-}
+
+To be written. "Failures teach success."
+
+# Small lessons
+
+## Always using `nr.rm = TRUE`
+
+The following code is correct in terms of syntax, but it does not give the result that we expect.
+```{r}
+x <- c(1:3, NA, 4)
+(y <- sum(x))
+```
+
+Instead, we should use
+```{r}
+x <- c(1:3, NA, 4)
+(y <- sum(x, na.rm = TRUE))
+```
+
+## Always using `seq_along`
+
+Sometime ago, I often write in my program something like 
+```{r, eval=FALSE}
+s <- 0
+for(i in 1:length(x)) s <- s + 1
+```
+This piece of code may fail because the length of `x` may be 0. The safer and right way is to use `seq_along`. So, the code should be changed to
+```{r, eval=FALSE}
+s <- 0
+for(i in seq_along(x)) s <- s + 1
+```
+
+## Always using `drop = FALSE`
+
+Let's look at the following example:
+```{r}
+x <- diag(3)
+y1 <- x[-1, ]
+y2 <- x[-c(1, 2), ]
+y3 <- x[-c(1, 2, 3), ]
+(is.matrix(y1))
+(is.matrix(y2))
+(is.matrix(y3))
+```
+This is interesing, isn't? The above example shows a tiny bit of *inconsistency* in **R**; this inconsitency is dangerous
+for programmers. To remove the inconsistency, we should chnage the code to
+```{r}
+x <- diag(3)
+y1 <- x[-1, , drop = FALSE]
+y2 <- x[-c(1, 2), , drop = FALSE]
+y3 <- x[-c(1, 2, 3), , drop = FALSE]
+(is.matrix(y1))
+(is.matrix(y2))
+(is.matrix(y3))
+(y3)
+```
+Note that `y3` is a mtrix of 0 rows and 3 columns. `y3` is not a real matrix in the mathematical sense but it is a leagal
+one in **R**.
+
+# Big lessons
+
+## Counting is not that easy
+
+## The dangers of joining two tables
+
