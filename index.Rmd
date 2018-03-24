@@ -27,7 +27,7 @@ To be written. "Failures teach success."
 
 # Small lessons
 
-## Always using `nr.rm = TRUE`
+## Always use `nr.rm = TRUE`
 
 The following code is correct in terms of syntax, but it does not give the result that we expect.
 ```{r}
@@ -41,7 +41,7 @@ x <- c(1:3, NA, 4)
 (y <- sum(x, na.rm = TRUE))
 ```
 
-## Always using `seq_along`
+## Always use `seq_along`
 
 Sometime ago, I often write in my program something like 
 ```{r, eval=FALSE}
@@ -54,7 +54,7 @@ s <- 0
 for(i in seq_along(x)) s <- s + 1
 ```
 
-## Always using `drop = FALSE`
+## Always use `drop = FALSE`
 
 Let's look at the following example:
 ```{r}
@@ -66,8 +66,8 @@ y3 <- x[-c(1, 2, 3), ]
 (is.matrix(y2))
 (is.matrix(y3))
 ```
-This is interesing, isn't? The above example shows a tiny bit of *inconsistency* in **R**; this inconsitency is dangerous
-for programmers. To remove the inconsistency, we should chnage the code to
+This is interesting, isn't? The above example shows a tiny bit of *inconsistency* in **R**; this inconsistency is dangerous
+for programmers. To remove the inconsistency, we should change the code to
 ```{r}
 x <- diag(3)
 y1 <- x[-1, , drop = FALSE]
@@ -78,12 +78,123 @@ y3 <- x[-c(1, 2, 3), , drop = FALSE]
 (is.matrix(y3))
 (y3)
 ```
-Note that `y3` is a mtrix of 0 rows and 3 columns. `y3` is not a real matrix in the mathematical sense but it is a leagal
+Note that `y3` is a matrix of 0 rows and 3 columns. `y3` is not a real matrix in the mathematical sense but it is a legal
 one in **R**.
+
+## Leap year problem
+
+Suppose we want to get data from today back to three years ago from a database; we may write code like the following:
+```{r, warning=FALSE, message=FALSE}
+library(lubridate)
+(query_start <- today() - years(3))
+```
+The code are OK most of time, but we will be in trouble if today is February 29, 2016. Let's see following code:
+```{r, warning=FALSE, message=FALSE}
+(query_start <- as.Date("2016-02-29") - years(3))
+```
+We got an `NA`; of course this is not what we wanted! We can write safer code as follows:
+```{r, warning=FALSE, message=FALSE}
+library(lubridate)
+m_d <- substring(ymd(today()), 6, 10)
+if(m_d == "02-29") {
+  query_start <- today() + days(1) - years(3) - days(1)
+} else { 
+  query_start <- today() - years(3) }
+(query_start)
+```
+
+
 
 # Big lessons
 
 ## Counting is not that easy
 
-## The dangers of joining two tables
+Finding number of rows under some constraints and then getting some a ratio is 
+a common practice for an analyst who is doing official statistics. But sometimes counting is not that easy when **a record is not the same as a response**. An example is that people are allowed to make multiple choices. We use the following fake data to tell two stories.
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+the_url <- "https://raw.githubusercontent.com/LarryZhang2016/Data/master/fake_data_4_counting_example.csv"
+fake_data <- read_csv(the_url)
+print.data.frame(fake_data)
+```
 
+**Story 1:** Find the number of respondents.
+The code below is **wrong**!
+```{r, message = FALSE, warning=FALSE}
+library(dplyr)
+no_of_respondents <-
+  fake_data %>% 
+  summarise(n = n())
+
+print.data.frame(no_of_respondents)
+```
+Here we should use `n_distinct()`, and the correct code is:
+```{r, message = FALSE, warning=FALSE}
+library(dplyr)
+no_of_respondents <-
+  fake_data %>% 
+  summarise(n = n_distinct(ID))
+
+print.data.frame(no_of_respondents)
+```
+
+**Story 2:** Tally the data with one dimension be Question-Number and the other dimension be Answers, and then create another table, which shows the proportions of people made the choice. 
+```{r, message = FALSE, warning=FALSE}
+no_of_people_choose_A_4_Q1 <-
+  fake_data %>% 
+  group_by(Q_NO, answers) %>% 
+  tally() %>% 
+  tidyr::spread(key = answers, value = n)
+
+print.data.frame(no_of_people_choose_A_4_Q1)
+
+proportion_table <- 
+  mutate(no_of_people_choose_A_4_Q1, 
+         A = A / no_of_respondents$n,
+         B = B / no_of_respondents$n,
+         C = C / no_of_respondents$n) 
+
+print.data.frame(proportion_table)
+```
+Note that the denominator should be **5** instead of **39**.
+
+## Joining tables, be careful! 
+
+When the values for one key variable are not unique, we must pay more attention to what we get from joining two tables -- sometimes it's not really what we want.
+
+**Example 1:**
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+
+(a_table <- data_frame(x = letters[1:5], y = 1:5))
+(b_table <- data_frame(x = c("a", "b", "b", "a", "c")))
+```
+Here we want to use `x` as the key and find "overlap" between `a_table` and `b_table`. We may write down 
+```{r, warning=FALSE, message=FALSE}
+(c_table <- inner_join(a_table, b_table, by = "x"))
+```
+but this code does not give the result that we want. so the correct code should be
+```{r, warning=FALSE, message=FALSE}
+temp_b_table <-
+  b_table %>% 
+  distinct(x)
+  
+c_table <-
+  a_table %>% 
+  inner_join(temp_b_table, by = "x")
+
+(c_table)
+```
+
+**Example 2:**
+```{r, warning=FALSE, message=FALSE}
+a_table <- data_frame(x = letters[1:5], y = 1:5)
+d_table <- data_frame(x = c("a", "b", "b", "a", "c"), 
+                      z = 6:10)
+
+e_table <-
+  a_table %>% 
+  left_join(d_table, by = "x") 
+(e_table)
+````
+Note that values of `x` in `e_table` are not unique and `e_table` has more rows than `a_table`.
