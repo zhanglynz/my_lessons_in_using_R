@@ -81,6 +81,16 @@ y3 <- x[-c(1, 2, 3), , drop = FALSE]
 Note that `y3` is a matrix of 0 rows and 3 columns. `y3` is not a real matrix in the mathematical sense but it is a legal
 one in **R**.
 
+## Always use `dir.create()`
+
+I have the habit of creating folders by hand, but for writing programs that will be used by other people we should always do the following:
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+if(!dir.exists("./Folder-name")) dir.create("./Folder-name")
+```
+
+
+
 ## Leap year problem
 
 Suppose we want to get data from today back to three years ago from a database; we may write code like the following:
@@ -103,6 +113,31 @@ if(m_d == "02-29") {
 (query_start)
 ```
 
+
+## NA may cause troubles
+
+We must be very cautious when we are dealing with NA's. The following code looked OK, but it 
+does not give what we expect.
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+
+a_df <- data.frame(x = c(letters[1:5], rep(NA, 3)))
+
+b_df <-
+   a_df %>%
+   filter(x != "c")
+```
+The right code should be
+```{r}
+library(dplyr)
+
+a_df <- data.frame(x = c(letters[1:5], rep(NA, 3)))
+
+b_df <-
+   a_df %>%
+   filter(x != "c" | is.na(x))
+```
+because we want to keep the rows where `x` is `NA`.
 
 
 # Big lessons
