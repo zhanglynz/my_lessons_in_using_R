@@ -286,5 +286,133 @@ for(col in cols)
 
 **NB**: In the above, we must use parentheses around `!!rlang::sym(col).`
 
+## dplyr programming
+
+The good references are:
+
+- https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html
+- https://edwinth.github.io/blog/dplyr-recipes/
+
+Here, we try several examples.
+
+**Example 1: square a variable in a dataframe, using `rlang::sym()` and `!!` (bang, bang)**
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+
+sq_a_var <- function(df, var)
+{new_var_name <- paste0(var, "_sq")
+
+ new_df <-
+  df %>%
+  mutate(!!rlang::sym(new_var_name) := (!!rlang::sym(var))^2)
+
+ new_df
+}
+
+a_df <- data.frame(x = 1:3,
+                   y = 2:4)
+
+(sq_a_var(a_df, "x"))
+(sq_a_var(a_df, "y"))
+```
+
+**Version 2**, in which we use `dplyr::enquo()` and `dplyr::quo_name()` and `!!!` (bang, bang, bang).
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+
+sq_a_var <- function(df, var)
+{var_enquo <- enquo(var)
+  
+ new_var_name <- paste0(quo_name(var_enquo), "_sq")
+
+ new_df <-
+  df %>%
+  mutate(!!new_var_name := (!!!var_enquo)^2)
+
+ new_df
+}
+
+a_df <- data.frame(x = 1:3,
+                   y = 2:4)
+
+(sq_a_var(a_df, x))
+(sq_a_var(a_df, y))
+```
+**Notice that in the above we use bare x or bare y rather than "x" or "y".**
 
 
+**Example 2: find frequency of a variable, using `enquo()` and `!!` (bang, bang)**
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+
+set.seed(20180425)
+a_df <- data.frame(x = sample(letters[1:3], 6, replace = TRUE),
+                   y = sample(LETTERS[1:3], 6, replace = TRUE))
+
+freq_table <- function(df, var)
+{n <- nrow(df)
+
+ var_enqo <- enquo(var)
+ 
+ re <- 
+   df %>% 
+   group_by(!!var_enqo) %>% 
+   summarise(freq = n() / n)
+ 
+ re
+}
+
+(freq_table(a_df, x))
+(freq_table(a_df, y))
+```
+
+**Example 3: group-by more than a variable, using `quos()` and `!!!`**
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+
+set.seed(20180425)
+a_df <- data.frame(x = sample(letters[1:3], 6, replace = TRUE),
+                   y = sample(LETTERS[1:3], 6, replace = TRUE),
+                   z = as.character(rep(1:3, each = 2)))
+
+summ_a_few_vars <- function(df, ...)
+{groupby_var <- quos(...)
+
+ re <- 
+   df %>% 
+   group_by(!!!groupby_var) %>% 
+   summarise(freq = n())
+ 
+ re
+}
+(a_df)
+(summ_a_few_vars(a_df, x, y))
+(summ_a_few_vars(a_df, y, z))
+
+```
+
+**Version 2**, in which we use `rlang::syms()` and `!!!`
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+
+set.seed(20180425)
+a_df <- data.frame(x = sample(letters[1:3], 6, replace = TRUE),
+                   y = sample(LETTERS[1:3], 6, replace = TRUE),
+                   z = as.character(rep(1:3, each = 2)))
+
+summ_a_few_vars <- function(df, ...)
+{groupby_var <- rlang::syms(...)
+
+re <- 
+  df %>% 
+  group_by(!!!groupby_var) %>% 
+  summarise(freq = n())
+
+re
+}
+
+(a_df)
+(summ_a_few_vars(a_df, list("x", "y")))
+(summ_a_few_vars(a_df, list("y", "z")))
+
+```
