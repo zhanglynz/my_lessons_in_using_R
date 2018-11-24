@@ -149,35 +149,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
              <span class="dt">z =</span> <span class="kw">c</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="ot">NA</span>, LETTERS[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]))
 (a_df)</code></pre></div>
 <pre><code>## # A tibble: 6 x 3
-##   x          y z    
-##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
-## 1 a      0.214 A    
-## 2 &lt;NA&gt;   0.302 B    
-## 3 b      0.717 C    
-## 4 d      0.464 &lt;NA&gt; 
-## 5 e      0.460 E    
-## 6 f     NA     F</code></pre>
+##   x           y z    
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;
+## 1 a      0.138  A    
+## 2 &lt;NA&gt;   0.233  B    
+## 3 b      0.0726 C    
+## 4 d      0.224  &lt;NA&gt; 
+## 5 e      0.948  E    
+## 6 f     NA      F</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using na.omit to remove rows that have NA</span>
 b_df &lt;-<span class="st"> </span>
 <span class="st">  </span>a_df <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">na.omit</span>()
 (b_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 3
-##   x         y z    
-##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.214 A    
-## 2 b     0.717 C    
-## 3 e     0.460 E</code></pre>
+##   x          y z    
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1 a     0.138  A    
+## 2 b     0.0726 C    
+## 3 e     0.948  E</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or using complete.cases</span>
 c_df &lt;-<span class="st"> </span>
 <span class="st">  </span>a_df[<span class="kw">complete.cases</span>(a_df) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ] 
 (c_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 3
-##   x         y z    
-##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.214 A    
-## 2 b     0.717 C    
-## 3 e     0.460 E</code></pre>
+##   x          y z    
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1 a     0.138  A    
+## 2 b     0.0726 C    
+## 3 e     0.948  E</code></pre>
 <p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
 <p><strong>Example:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
@@ -188,14 +188,14 @@ a_df &lt;-<span class="st"> </span>
              <span class="dt">w =</span> <span class="kw">rnorm</span>(<span class="dv">6</span>))
 (a_df)</code></pre></div>
 <pre><code>## # A tibble: 6 x 4
-##   x     y     z          w
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A     -1.04 
-## 2 ZZZ   b     B     -0.431
-## 3 b     c     C      1.03 
-## 4 d     d     ZZZ   -0.317
-## 5 e     e     E      0.565
-## 6 f     ZZZ   F      0.269</code></pre>
+##   x     y     z           w
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1 a     a     A      0.865 
+## 2 ZZZ   b     B     -0.655 
+## 3 b     c     C      0.0492
+## 4 d     d     ZZZ   -0.424 
+## 5 e     e     E     -1.06  
+## 6 f     ZZZ   F      0.960</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">colnames</span>(a_df)
 b_df &lt;-<span class="st"> </span>a_df
 <span class="cf">for</span>(col <span class="cf">in</span> cols)
@@ -204,11 +204,11 @@ b_df &lt;-<span class="st"> </span>a_df
 }
 (b_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 4
-##   x     y     z          w
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A     -1.04 
-## 2 b     c     C      1.03 
-## 3 e     e     E      0.565</code></pre>
+##   x     y     z           w
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1 a     a     A      0.865 
+## 2 b     c     C      0.0492
+## 3 e     e     E     -1.06</code></pre>
 <p><strong>NB</strong>: In the above, we must use parentheses around <code>!!rlang::sym(col).</code></p>
 </div>
 <div id="dplyr-programming" class="section level2">
