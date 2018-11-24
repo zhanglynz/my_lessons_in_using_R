@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The lessons I learned in using R</title>
+  <meta name="description" content="The lessons I learned in using R">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="The lessons I learned in using R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The lessons I learned in using R" />
+  
+  
+  
+
+<meta name="author" content="Lingyun Zhang">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="big-lessons.html">
+<link rel="next" href="tricking-plotting.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="small-lessons.html"><a href="small-lessons.html"><i class="fa fa-check"></i><b>1</b> Small lessons</a><ul>
+<li class="chapter" data-level="1.1" data-path="small-lessons.html"><a href="small-lessons.html#always-use-na.rm-true"><i class="fa fa-check"></i><b>1.1</b> Always use <code>na.rm = TRUE</code></a></li>
+<li class="chapter" data-level="1.2" data-path="small-lessons.html"><a href="small-lessons.html#always-use-seq_along"><i class="fa fa-check"></i><b>1.2</b> Always use <code>seq_along</code></a></li>
+<li class="chapter" data-level="1.3" data-path="small-lessons.html"><a href="small-lessons.html#always-use-drop-false"><i class="fa fa-check"></i><b>1.3</b> Always use <code>drop = FALSE</code></a></li>
+<li class="chapter" data-level="1.4" data-path="small-lessons.html"><a href="small-lessons.html#always-use-dir.create"><i class="fa fa-check"></i><b>1.4</b> Always use <code>dir.create()</code></a></li>
+<li class="chapter" data-level="1.5" data-path="small-lessons.html"><a href="small-lessons.html#leap-year-problem"><i class="fa fa-check"></i><b>1.5</b> Leap year problem</a></li>
+<li class="chapter" data-level="1.6" data-path="small-lessons.html"><a href="small-lessons.html#na-may-cause-troubles"><i class="fa fa-check"></i><b>1.6</b> NA may cause troubles</a></li>
+<li class="chapter" data-level="1.7" data-path="small-lessons.html"><a href="small-lessons.html#using-tidyrspread"><i class="fa fa-check"></i><b>1.7</b> using <code>tidyr::spread()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a><ul>
+<li class="chapter" data-level="2.1" data-path="big-lessons.html"><a href="big-lessons.html#counting-is-not-that-easy"><i class="fa fa-check"></i><b>2.1</b> Counting is not that easy</a></li>
+<li class="chapter" data-level="2.2" data-path="big-lessons.html"><a href="big-lessons.html#joining-tables-be-careful"><i class="fa fa-check"></i><b>2.2</b> Joining tables, be careful!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
+<li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
+<li class="chapter" data-level="3.2" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#dplyr-programming"><i class="fa fa-check"></i><b>3.2</b> dplyr programming</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tricking-plotting.html"><a href="tricking-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricking plotting</a><ul>
+<li class="chapter" data-level="4.1" data-path="tricking-plotting.html"><a href="tricking-plotting.html#bar-charts"><i class="fa fa-check"></i><b>4.1</b> Bar charts</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The lessons I learned in using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="some-useful-tricks" class="section level1">
+<h1><span class="header-section-number">3</span> Some useful tricks</h1>
+<div id="removing-rows-under-constraints" class="section level2">
+<h2><span class="header-section-number">3.1</span> Removing rows under constraints</h2>
+<p>We discuss two cases.</p>
+<p><strong>Case 1</strong>: removing rows that contain NA. For this case, we can use <code>na.omit()</code> or <code>complete.cases()</code>. Let us see the following example.</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_df &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>),
+             <span class="dt">y =</span> <span class="kw">c</span>(<span class="kw">runif</span>(<span class="dv">5</span>), <span class="ot">NA</span>),
+             <span class="dt">z =</span> <span class="kw">c</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="ot">NA</span>, LETTERS[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]))
+(a_df)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   x          y z    
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1 a      0.214 A    
+## 2 &lt;NA&gt;   0.302 B    
+## 3 b      0.717 C    
+## 4 d      0.464 &lt;NA&gt; 
+## 5 e      0.460 E    
+## 6 f     NA     F</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using na.omit to remove rows that have NA</span>
+b_df &lt;-<span class="st"> </span>
+<span class="st">  </span>a_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">na.omit</span>()
+(b_df)</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   x         y z    
+##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1 a     0.214 A    
+## 2 b     0.717 C    
+## 3 e     0.460 E</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or using complete.cases</span>
+c_df &lt;-<span class="st"> </span>
+<span class="st">  </span>a_df[<span class="kw">complete.cases</span>(a_df) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ] 
+(c_df)</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   x         y z    
+##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1 a     0.214 A    
+## 2 b     0.717 C    
+## 3 e     0.460 E</code></pre>
+<p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+a_df &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;ZZZ&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>),
+             <span class="dt">y =</span> <span class="kw">c</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="st">&quot;ZZZ&quot;</span>),
+             <span class="dt">z =</span> <span class="kw">c</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="st">&quot;ZZZ&quot;</span>, LETTERS[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]),
+             <span class="dt">w =</span> <span class="kw">rnorm</span>(<span class="dv">6</span>))
+(a_df)</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   x     y     z          w
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1 a     a     A     -1.04 
+## 2 ZZZ   b     B     -0.431
+## 3 b     c     C      1.03 
+## 4 d     d     ZZZ   -0.317
+## 5 e     e     E      0.565
+## 6 f     ZZZ   F      0.269</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">colnames</span>(a_df)
+b_df &lt;-<span class="st"> </span>a_df
+<span class="cf">for</span>(col <span class="cf">in</span> cols)
+{b_df &lt;-
+<span class="st">  </span><span class="kw">filter</span>(b_df, (<span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(col)) <span class="op">!=</span><span class="st"> &quot;ZZZ&quot;</span>)
+}
+(b_df)</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##   x     y     z          w
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1 a     a     A     -1.04 
+## 2 b     c     C      1.03 
+## 3 e     e     E      0.565</code></pre>
+<p><strong>NB</strong>: In the above, we must use parentheses around <code>!!rlang::sym(col).</code></p>
+</div>
+<div id="dplyr-programming" class="section level2">
+<h2><span class="header-section-number">3.2</span> dplyr programming</h2>
+<p>The good references are:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html" class="uri">https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html</a></li>
+<li><a href="https://edwinth.github.io/blog/dplyr-recipes/" class="uri">https://edwinth.github.io/blog/dplyr-recipes/</a></li>
+</ul>
+<p>Here, we try several examples.</p>
+<p><strong>Example 1: square a variable in a dataframe, using <code>rlang::sym()</code> and <code>!!</code> (bang, bang)</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+sq_a_var &lt;-<span class="st"> </span><span class="cf">function</span>(df, var)
+{new_var_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(var, <span class="st">&quot;_sq&quot;</span>)
+
+ new_df &lt;-
+<span class="st">  </span>df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(new_var_name) <span class="op">:</span><span class="er">=</span><span class="st"> </span>(<span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(var))<span class="op">^</span><span class="dv">2</span>)
+
+ new_df
+}
+
+a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,
+                   <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>)
+
+(<span class="kw">sq_a_var</span>(a_df, <span class="st">&quot;x&quot;</span>))</code></pre></div>
+<pre><code>##   x y x_sq
+## 1 1 2    1
+## 2 2 3    4
+## 3 3 4    9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">sq_a_var</span>(a_df, <span class="st">&quot;y&quot;</span>))</code></pre></div>
+<pre><code>##   x y y_sq
+## 1 1 2    4
+## 2 2 3    9
+## 3 3 4   16</code></pre>
+<p><strong>Version 2</strong>, in which we use <code>dplyr::enquo()</code> and <code>dplyr::quo_name()</code> and <code>!!</code> (bang, bang).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+sq_a_var &lt;-<span class="st"> </span><span class="cf">function</span>(df, var)
+{var_enquo &lt;-<span class="st"> </span><span class="kw">enquo</span>(var)
+  
+ new_var_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">quo_name</span>(var_enquo), <span class="st">&quot;_sq&quot;</span>)
+
+ new_df &lt;-
+<span class="st">  </span>df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>new_var_name <span class="op">:</span><span class="er">=</span><span class="st"> </span>(<span class="op">!!</span>var_enquo)<span class="op">^</span><span class="dv">2</span>)
+
+ new_df
+}
+
+a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,
+                   <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>)
+
+(<span class="kw">sq_a_var</span>(a_df, x))</code></pre></div>
+<pre><code>##   x y x_sq
+## 1 1 2    1
+## 2 2 3    4
+## 3 3 4    9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">sq_a_var</span>(a_df, y))</code></pre></div>
+<pre><code>##   x y y_sq
+## 1 1 2    4
+## 2 2 3    9
+## 3 3 4   16</code></pre>
+<p><strong>Notice that in the above we use bare x or bare y rather than “x” or “y”.</strong></p>
+<p><strong>Example 2: find frequency of a variable, using <code>enquo()</code> and <code>!!</code> (bang, bang)</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+<span class="kw">set.seed</span>(<span class="dv">20180425</span>)
+a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+                   <span class="dt">y =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
+
+freq_table &lt;-<span class="st"> </span><span class="cf">function</span>(df, var)
+{n &lt;-<span class="st"> </span><span class="kw">nrow</span>(df)
+
+ var_enqo &lt;-<span class="st"> </span><span class="kw">enquo</span>(var)
+ 
+ re &lt;-<span class="st"> </span>
+<span class="st">   </span>df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">group_by</span>(<span class="op">!!</span>var_enqo) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">summarise</span>(<span class="dt">freq =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span>n)
+ 
+ re
+}
+
+(<span class="kw">freq_table</span>(a_df, x))</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   x      freq
+##   &lt;fct&gt; &lt;dbl&gt;
+## 1 a     0.167
+## 2 b     0.167
+## 3 c     0.667</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">freq_table</span>(a_df, y))</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   y      freq
+##   &lt;fct&gt; &lt;dbl&gt;
+## 1 A     0.167
+## 2 B     0.333
+## 3 C     0.500</code></pre>
+<p><strong>Example 3: group-by more than a variable, using <code>quos()</code> and <code>!!!</code></strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+<span class="kw">set.seed</span>(<span class="dv">20180425</span>)
+a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+                   <span class="dt">y =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+                   <span class="dt">z =</span> <span class="kw">as.character</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each =</span> <span class="dv">2</span>)))
+
+summ_a_few_vars &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...)
+{groupby_var &lt;-<span class="st"> </span><span class="kw">quos</span>(...)
+
+ re &lt;-<span class="st"> </span>
+<span class="st">   </span>df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">group_by</span>(<span class="op">!!!</span>groupby_var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">summarise</span>(<span class="dt">freq =</span> <span class="kw">n</span>())
+ 
+ re
+}
+(a_df)</code></pre></div>
+<pre><code>##   x y z
+## 1 b B 1
+## 2 c B 1
+## 3 c C 2
+## 4 c C 2
+## 5 a A 3
+## 6 c C 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, x, y))</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+## # Groups:   x [?]
+##   x     y      freq
+##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
+## 1 a     A         1
+## 2 b     B         1
+## 3 c     B         1
+## 4 c     C         3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, y, z))</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+## # Groups:   y [?]
+##   y     z      freq
+##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
+## 1 A     3         1
+## 2 B     1         2
+## 3 C     2         2
+## 4 C     3         1</code></pre>
+<p><strong>Version 2</strong>, in which we use <code>rlang::syms()</code> and <code>!!!</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+<span class="kw">set.seed</span>(<span class="dv">20180425</span>)
+a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+                   <span class="dt">y =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+                   <span class="dt">z =</span> <span class="kw">as.character</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each =</span> <span class="dv">2</span>)))
+
+summ_a_few_vars &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...)
+{groupby_var &lt;-<span class="st"> </span>rlang<span class="op">::</span><span class="kw">syms</span>(...)
+
+re &lt;-<span class="st"> </span>
+<span class="st">  </span>df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(<span class="op">!!!</span>groupby_var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">freq =</span> <span class="kw">n</span>())
+
+re
+}
+
+(a_df)</code></pre></div>
+<pre><code>##   x y z
+## 1 b B 1
+## 2 c B 1
+## 3 c C 2
+## 4 c C 2
+## 5 a A 3
+## 6 c C 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, <span class="kw">list</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)))</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+## # Groups:   x [?]
+##   x     y      freq
+##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
+## 1 a     A         1
+## 2 b     B         1
+## 3 c     B         1
+## 4 c     C         3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, <span class="kw">list</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)))</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+## # Groups:   y [?]
+##   y     z      freq
+##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
+## 1 A     3         1
+## 2 B     1         2
+## 3 C     2         2
+## 4 C     3         1</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="big-lessons.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tricking-plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
