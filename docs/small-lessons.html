@@ -115,6 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
 <li class="chapter" data-level="3.2" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#dplyr-programming"><i class="fa fa-check"></i><b>3.2</b> dplyr programming</a></li>
+<li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-family-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> family functions</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tricking-plotting.html"><a href="tricking-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricking plotting</a><ul>
 <li class="chapter" data-level="4.1" data-path="tricking-plotting.html"><a href="tricking-plotting.html#bar-charts"><i class="fa fa-check"></i><b>4.1</b> Bar charts</a></li>
@@ -196,7 +197,7 @@ y3 &lt;-<span class="st"> </span>x[<span class="op">-</span><span class="kw">c</
 <p>Suppose we want to get data from today back to three years ago from a database; we may write code like the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
 (query_start &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>))</code></pre></div>
-<pre><code>## [1] &quot;2015-11-24&quot;</code></pre>
+<pre><code>## [1] &quot;2015-12-02&quot;</code></pre>
 <p>The code are OK most of time, but we will be in trouble if today is February 29, 2016. Let’s see following code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(query_start &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>))</code></pre></div>
 <pre><code>## [1] NA</code></pre>
@@ -208,7 +209,7 @@ m_d &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class=
 } <span class="cf">else</span> { 
   query_start &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>) }
 (query_start)</code></pre></div>
-<pre><code>## [1] &quot;2015-11-24&quot;</code></pre>
+<pre><code>## [1] &quot;2015-12-02&quot;</code></pre>
 </div>
 <div id="na-may-cause-troubles" class="section level2">
 <h2><span class="header-section-number">1.6</span> NA may cause troubles</h2>
@@ -240,11 +241,11 @@ long_table &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
                          <span class="dt">gender =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
 (long_table)</code></pre></div>
 <pre><code>##   age gender
-## 1  26      f
-## 2  15      m
-## 3  24      m
-## 4  29      f
-## 5  22      m</code></pre>
+## 1  25      f
+## 2  21      f
+## 3  18      f
+## 4  17      f
+## 5  16      f</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## this does not work
 
 <span class="co"># wide_table &lt;-</span>
@@ -260,12 +261,12 @@ wide_table &lt;-
 <span class="st">  </span><span class="kw">arrange</span>(f)
 
 (wide_table)</code></pre></div>
-<pre><code>##    f  m
-## 1 26 NA
-## 2 29 NA
-## 3 NA 15
-## 4 NA 24
-## 5 NA 22</code></pre>
+<pre><code>##    f
+## 1 16
+## 2 17
+## 3 18
+## 4 21
+## 5 25</code></pre>
 </div>
 </div>
             </section>
