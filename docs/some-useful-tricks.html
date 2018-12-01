@@ -150,14 +150,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
              <span class="dt">z =</span> <span class="kw">c</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="ot">NA</span>, LETTERS[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]))
 (a_df)</code></pre></div>
 <pre><code>## # A tibble: 6 x 3
-##   x            y z    
-##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
-## 1 a      0.589   A    
-## 2 &lt;NA&gt;   0.0190  B    
-## 3 b      0.640   C    
-## 4 d      0.00485 &lt;NA&gt; 
-## 5 e      0.447   E    
-## 6 f     NA       F</code></pre>
+##   x           y z    
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;
+## 1 a      0.312  A    
+## 2 &lt;NA&gt;   0.0321 B    
+## 3 b      0.122  C    
+## 4 d      0.940  &lt;NA&gt; 
+## 5 e      0.501  E    
+## 6 f     NA      F</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using na.omit to remove rows that have NA</span>
 b_df &lt;-<span class="st"> </span>
 <span class="st">  </span>a_df <span class="op">%&gt;%</span><span class="st"> </span>
@@ -166,9 +166,9 @@ b_df &lt;-<span class="st"> </span>
 <pre><code>## # A tibble: 3 x 3
 ##   x         y z    
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.589 A    
-## 2 b     0.640 C    
-## 3 e     0.447 E</code></pre>
+## 1 a     0.312 A    
+## 2 b     0.122 C    
+## 3 e     0.501 E</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or using complete.cases</span>
 c_df &lt;-<span class="st"> </span>
 <span class="st">  </span>a_df[<span class="kw">complete.cases</span>(a_df) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ] 
@@ -176,9 +176,9 @@ c_df &lt;-<span class="st"> </span>
 <pre><code>## # A tibble: 3 x 3
 ##   x         y z    
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.589 A    
-## 2 b     0.640 C    
-## 3 e     0.447 E</code></pre>
+## 1 a     0.312 A    
+## 2 b     0.122 C    
+## 3 e     0.501 E</code></pre>
 <p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
 <p><strong>Example:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
@@ -191,12 +191,12 @@ a_df &lt;-<span class="st"> </span>
 <pre><code>## # A tibble: 6 x 4
 ##   x     y     z          w
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A      0.753
-## 2 ZZZ   b     B      1.20 
-## 3 b     c     C      0.464
-## 4 d     d     ZZZ   -0.874
-## 5 e     e     E      1.33 
-## 6 f     ZZZ   F     -0.827</code></pre>
+## 1 a     a     A     -1.43 
+## 2 ZZZ   b     B     -0.562
+## 3 b     c     C     -0.149
+## 4 d     d     ZZZ   -0.856
+## 5 e     e     E      1.08 
+## 6 f     ZZZ   F     -0.720</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">colnames</span>(a_df)
 b_df &lt;-<span class="st"> </span>a_df
 <span class="cf">for</span>(col <span class="cf">in</span> cols)
@@ -205,11 +205,11 @@ b_df &lt;-<span class="st"> </span>a_df
 }
 (b_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 4
-##   x     y     z         w
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
-## 1 a     a     A     0.753
-## 2 b     c     C     0.464
-## 3 e     e     E     1.33</code></pre>
+##   x     y     z          w
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1 a     a     A     -1.43 
+## 2 b     c     C     -0.149
+## 3 e     e     E      1.08</code></pre>
 <p><strong>NB</strong>: In the above, we must use parentheses around <code>!!rlang::sym(col).</code></p>
 </div>
 <div id="dplyr-programming" class="section level2">
@@ -401,7 +401,41 @@ re
 </div>
 <div id="using-apply-family-functions" class="section level2">
 <h2><span class="header-section-number">3.3</span> Using <code>apply</code> family functions</h2>
-<p><strong>Example</strong>: (a) Create a fake data frame, which has columns of sex, age and score; (b) for each column, find its mode (the most frequent one) and the frequency. The key is to use <code>sapply()</code>.</p>
+<p><strong>Example 1</strong>: (a) Create a fake data frame which has three columns: group_ID, list_1 and list_2, where both list_1 and list_2 are <em>list of lists</em>; (b) find the intersection of list_1 and list_2 and the number of elements in the intersection. The key is to use <code>mapply()</code> and <code>sapply</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
+
+<span class="co"># temp data_frame</span>
+<span class="co"># this is to make the fake data more &quot;real&quot;</span>
+temp_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> 4L,
+                      <span class="dt">L_1 =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>),
+                      <span class="dt">L_2 =</span> <span class="kw">list</span>(<span class="ot">NULL</span>))
+
+<span class="co"># fake data_frame</span>
+fk_df &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+             <span class="dt">v1 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+             <span class="dt">v2 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(group_ID) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">L_1 =</span> <span class="kw">list</span>(v1),
+            <span class="dt">L_2 =</span> <span class="kw">list</span>(v2)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_rows</span>(temp_df)
+
+result_df &lt;-<span class="st"> </span>
+<span class="st">  </span>fk_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">inter_set =</span> <span class="kw">mapply</span>(intersect, L_<span class="dv">1</span>, L_<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">sapply</span>(inter_set, length))
+
+result_df</code></pre></div>
+<pre><code>## # A tibble: 4 x 5
+##   group_ID L_1        L_2        inter_set     n
+##      &lt;int&gt; &lt;list&gt;     &lt;list&gt;     &lt;list&gt;    &lt;int&gt;
+## 1        1 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [0]&gt;     0
+## 2        2 &lt;chr [14]&gt; &lt;chr [14]&gt; &lt;chr [5]&gt;     5
+## 3        3 &lt;chr [7]&gt;  &lt;chr [7]&gt;  &lt;chr [0]&gt;     0
+## 4        4 &lt;chr [1]&gt;  &lt;NULL&gt;     &lt;NULL&gt;        0</code></pre>
+<p><strong>Example 2</strong>: (a) Create a fake data frame, which has columns of sex, age and score; (b) for each column, find its mode (the most frequent one) and the frequency. The key is to use <code>sapply()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 
 <span class="kw">set.seed</span>(<span class="dv">12022018</span>)
@@ -434,6 +468,29 @@ result_df  </code></pre></div>
 ## 1      sex        M       54
 ## 2      age       24       17
 ## 3    score        C       26</code></pre>
+<p><strong>Example 3</strong>: This is another example to use <code>sapply</code> (or <code>lapply()</code>). We want to split the words and descriptions in a dictionary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+my_dict &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">record =</span> <span class="kw">c</span>(<span class="st">&quot;a : ace&quot;</span>,
+                        <span class="st">&quot;b: boy&quot;</span>,
+                        <span class="st">&quot;c: coy &quot;</span>))
+
+result_df &lt;-<span class="st"> </span>
+<span class="st">  </span>my_dict <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word_desc =</span> <span class="kw">strsplit</span>(record, <span class="dt">split =</span> <span class="st">&quot;:&quot;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">sapply</span>(word_desc, <span class="cf">function</span>(x) <span class="kw">unlist</span>(x)[<span class="dv">1</span>])) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">description =</span> <span class="kw">sapply</span>(word_desc, <span class="cf">function</span>(x) <span class="kw">unlist</span>(x)[<span class="dv">2</span>])) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">trimws</span>(word, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>),
+         <span class="dt">description =</span> <span class="kw">trimws</span>(description, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>))
+  
+result_df</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##   record    word_desc word  description
+##   &lt;chr&gt;     &lt;list&gt;    &lt;chr&gt; &lt;chr&gt;      
+## 1 a : ace   &lt;chr [2]&gt; a     ace        
+## 2 b: boy    &lt;chr [2]&gt; b     boy        
+## 3 &quot;c: coy &quot; &lt;chr [2]&gt; c     coy</code></pre>
 </div>
 </div>
             </section>
