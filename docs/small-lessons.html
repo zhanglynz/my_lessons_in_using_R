@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
 <li class="chapter" data-level="3.2" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#dplyr-programming"><i class="fa fa-check"></i><b>3.2</b> dplyr programming</a></li>
-<li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-family-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> family functions</a></li>
+<li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-and-map-family-of-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> and <code>map</code> family of functions</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tricking-plotting.html"><a href="tricking-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricking plotting</a><ul>
 <li class="chapter" data-level="4.1" data-path="tricking-plotting.html"><a href="tricking-plotting.html#bar-charts"><i class="fa fa-check"></i><b>4.1</b> Bar charts</a></li>
@@ -241,11 +241,11 @@ long_table &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
                          <span class="dt">gender =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
 (long_table)</code></pre></div>
 <pre><code>##   age gender
-## 1  26      m
-## 2  28      m
-## 3  25      m
-## 4  29      m
-## 5  15      f</code></pre>
+## 1  23      m
+## 2  20      f
+## 3  21      m
+## 4  24      f
+## 5  27      m</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## this does not work
 
 <span class="co"># wide_table &lt;-</span>
@@ -262,11 +262,11 @@ wide_table &lt;-
 
 (wide_table)</code></pre></div>
 <pre><code>##    f  m
-## 1 15 NA
-## 2 NA 26
-## 3 NA 28
-## 4 NA 25
-## 5 NA 29</code></pre>
+## 1 20 NA
+## 2 24 NA
+## 3 NA 23
+## 4 NA 21
+## 5 NA 27</code></pre>
 </div>
 </div>
             </section>

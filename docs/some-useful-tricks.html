@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
 <li class="chapter" data-level="3.2" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#dplyr-programming"><i class="fa fa-check"></i><b>3.2</b> dplyr programming</a></li>
-<li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-family-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> family functions</a></li>
+<li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-and-map-family-of-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> and <code>map</code> family of functions</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tricking-plotting.html"><a href="tricking-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricking plotting</a><ul>
 <li class="chapter" data-level="4.1" data-path="tricking-plotting.html"><a href="tricking-plotting.html#bar-charts"><i class="fa fa-check"></i><b>4.1</b> Bar charts</a></li>
@@ -152,11 +152,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## # A tibble: 6 x 3
 ##   x           y z    
 ##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;
-## 1 a      0.312  A    
-## 2 &lt;NA&gt;   0.0321 B    
-## 3 b      0.122  C    
-## 4 d      0.940  &lt;NA&gt; 
-## 5 e      0.501  E    
+## 1 a      0.0101 A    
+## 2 &lt;NA&gt;   0.498  B    
+## 3 b      0.415  C    
+## 4 d      0.470  &lt;NA&gt; 
+## 5 e      0.752  E    
 ## 6 f     NA      F</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using na.omit to remove rows that have NA</span>
 b_df &lt;-<span class="st"> </span>
@@ -164,21 +164,21 @@ b_df &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw">na.omit</span>()
 (b_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 3
-##   x         y z    
-##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.312 A    
-## 2 b     0.122 C    
-## 3 e     0.501 E</code></pre>
+##   x          y z    
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1 a     0.0101 A    
+## 2 b     0.415  C    
+## 3 e     0.752  E</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or using complete.cases</span>
 c_df &lt;-<span class="st"> </span>
 <span class="st">  </span>a_df[<span class="kw">complete.cases</span>(a_df) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ] 
 (c_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 3
-##   x         y z    
-##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.312 A    
-## 2 b     0.122 C    
-## 3 e     0.501 E</code></pre>
+##   x          y z    
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1 a     0.0101 A    
+## 2 b     0.415  C    
+## 3 e     0.752  E</code></pre>
 <p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
 <p><strong>Example:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
@@ -189,14 +189,14 @@ a_df &lt;-<span class="st"> </span>
              <span class="dt">w =</span> <span class="kw">rnorm</span>(<span class="dv">6</span>))
 (a_df)</code></pre></div>
 <pre><code>## # A tibble: 6 x 4
-##   x     y     z          w
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A     -1.43 
-## 2 ZZZ   b     B     -0.562
-## 3 b     c     C     -0.149
-## 4 d     d     ZZZ   -0.856
-## 5 e     e     E      1.08 
-## 6 f     ZZZ   F     -0.720</code></pre>
+##   x     y     z           w
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1 a     a     A      0.455 
+## 2 ZZZ   b     B     -0.0843
+## 3 b     c     C     -0.532 
+## 4 d     d     ZZZ   -0.499 
+## 5 e     e     E      0.437 
+## 6 f     ZZZ   F      0.892</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">colnames</span>(a_df)
 b_df &lt;-<span class="st"> </span>a_df
 <span class="cf">for</span>(col <span class="cf">in</span> cols)
@@ -207,9 +207,9 @@ b_df &lt;-<span class="st"> </span>a_df
 <pre><code>## # A tibble: 3 x 4
 ##   x     y     z          w
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A     -1.43 
-## 2 b     c     C     -0.149
-## 3 e     e     E      1.08</code></pre>
+## 1 a     a     A      0.455
+## 2 b     c     C     -0.532
+## 3 e     e     E      0.437</code></pre>
 <p><strong>NB</strong>: In the above, we must use parentheses around <code>!!rlang::sym(col).</code></p>
 </div>
 <div id="dplyr-programming" class="section level2">
@@ -399,8 +399,8 @@ re
 ## 3 C     2         2
 ## 4 C     3         1</code></pre>
 </div>
-<div id="using-apply-family-functions" class="section level2">
-<h2><span class="header-section-number">3.3</span> Using <code>apply</code> family functions</h2>
+<div id="using-apply-and-map-family-of-functions" class="section level2">
+<h2><span class="header-section-number">3.3</span> Using <code>apply</code> and <code>map</code> family of functions</h2>
 <p><strong>Example 1</strong>: (a) Create a fake data frame which has three columns: group_ID, list_1 and list_2, where both list_1 and list_2 are <em>list of lists</em>; (b) find the intersection of list_1 and list_2 and the number of elements in the intersection. The key is to use <code>mapply()</code> and <code>sapply</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 
@@ -426,6 +426,43 @@ result_df &lt;-<span class="st"> </span>
 <span class="st">  </span>fk_df <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">inter_set =</span> <span class="kw">mapply</span>(intersect, L_<span class="dv">1</span>, L_<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">sapply</span>(inter_set, length))
+
+result_df</code></pre></div>
+<pre><code>## # A tibble: 4 x 5
+##   group_ID L_1        L_2        inter_set     n
+##      &lt;int&gt; &lt;list&gt;     &lt;list&gt;     &lt;list&gt;    &lt;int&gt;
+## 1        1 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [0]&gt;     0
+## 2        2 &lt;chr [14]&gt; &lt;chr [14]&gt; &lt;chr [5]&gt;     5
+## 3        3 &lt;chr [7]&gt;  &lt;chr [7]&gt;  &lt;chr [0]&gt;     0
+## 4        4 &lt;chr [1]&gt;  &lt;NULL&gt;     &lt;NULL&gt;        0</code></pre>
+<p>The <code>map</code> version:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(purrr)
+
+<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
+
+<span class="co"># temp data_frame</span>
+<span class="co"># this is to make the fake data more &quot;real&quot;</span>
+temp_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> 4L,
+                      <span class="dt">L_1 =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>),
+                      <span class="dt">L_2 =</span> <span class="kw">list</span>(<span class="ot">NULL</span>))
+
+<span class="co"># fake data_frame</span>
+fk_df &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+             <span class="dt">v1 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+             <span class="dt">v2 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(group_ID) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">L_1 =</span> <span class="kw">list</span>(v1),
+            <span class="dt">L_2 =</span> <span class="kw">list</span>(v2)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_rows</span>(temp_df)
+
+result_df &lt;-<span class="st"> </span>
+<span class="st">  </span>fk_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">inter_set =</span> <span class="kw">map2</span>(L_<span class="dv">1</span>, L_<span class="dv">2</span>, intersect)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># or using pmap</span>
+<span class="st">  </span><span class="co"># mutate(inter_set = pmap(list(L_1, L_2), intersect)) %&gt;% </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">map_int</span>(inter_set, length))
 
 result_df</code></pre></div>
 <pre><code>## # A tibble: 4 x 5
