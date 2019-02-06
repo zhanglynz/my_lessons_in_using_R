@@ -152,11 +152,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## # A tibble: 6 x 3
 ##   x          y z    
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
-## 1 a      0.404 A    
-## 2 &lt;NA&gt;   0.664 B    
-## 3 b      0.195 C    
-## 4 d      0.918 &lt;NA&gt; 
-## 5 e      0.741 E    
+## 1 a      0.783 A    
+## 2 &lt;NA&gt;   0.415 B    
+## 3 b      0.899 C    
+## 4 d      0.134 &lt;NA&gt; 
+## 5 e      0.589 E    
 ## 6 f     NA     F</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using na.omit to remove rows that have NA</span>
 b_df &lt;-<span class="st"> </span>
@@ -166,9 +166,9 @@ b_df &lt;-<span class="st"> </span>
 <pre><code>## # A tibble: 3 x 3
 ##   x         y z    
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.404 A    
-## 2 b     0.195 C    
-## 3 e     0.741 E</code></pre>
+## 1 a     0.783 A    
+## 2 b     0.899 C    
+## 3 e     0.589 E</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or using complete.cases</span>
 c_df &lt;-<span class="st"> </span>
 <span class="st">  </span>a_df[<span class="kw">complete.cases</span>(a_df) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ] 
@@ -176,9 +176,9 @@ c_df &lt;-<span class="st"> </span>
 <pre><code>## # A tibble: 3 x 3
 ##   x         y z    
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.404 A    
-## 2 b     0.195 C    
-## 3 e     0.741 E</code></pre>
+## 1 a     0.783 A    
+## 2 b     0.899 C    
+## 3 e     0.589 E</code></pre>
 <p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
 <p><strong>Example:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
@@ -191,12 +191,12 @@ a_df &lt;-<span class="st"> </span>
 <pre><code>## # A tibble: 6 x 4
 ##   x     y     z          w
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A      1.73 
-## 2 ZZZ   b     B      3.04 
-## 3 b     c     C      1.48 
-## 4 d     d     ZZZ    1.02 
-## 5 e     e     E     -0.905
-## 6 f     ZZZ   F      0.645</code></pre>
+## 1 a     a     A     -0.588
+## 2 ZZZ   b     B     -0.532
+## 3 b     c     C      1.24 
+## 4 d     d     ZZZ    0.107
+## 5 e     e     E     -0.693
+## 6 f     ZZZ   F      2.73</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">colnames</span>(a_df)
 b_df &lt;-<span class="st"> </span>a_df
 <span class="cf">for</span>(col <span class="cf">in</span> cols)
@@ -207,9 +207,9 @@ b_df &lt;-<span class="st"> </span>a_df
 <pre><code>## # A tibble: 3 x 4
 ##   x     y     z          w
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A      1.73 
-## 2 b     c     C      1.48 
-## 3 e     e     E     -0.905</code></pre>
+## 1 a     a     A     -0.588
+## 2 b     c     C      1.24 
+## 3 e     e     E     -0.693</code></pre>
 <p><strong>NB</strong>: In the above, we must use parentheses around <code>!!rlang::sym(col).</code></p>
 </div>
 <div id="dplyr-programming" class="section level2">
@@ -505,6 +505,39 @@ result_df  </code></pre></div>
 ## 1      sex        M       54
 ## 2      age       24       17
 ## 3    score        C       26</code></pre>
+<p>Or, we use the following code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(purrr)
+
+<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
+
+fk_df &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="co"># using data_frame rather than data.frame, for dealing with &quot;negative&quot; factor effect</span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">sex =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+             <span class="dt">age =</span> <span class="kw">sample</span>(<span class="dv">19</span><span class="op">:</span><span class="dv">25</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+             <span class="dt">score =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
+
+<span class="co"># modified Mode function</span>
+<span class="co"># https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode</span>
+Mode_and_freq &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  ux &lt;-<span class="st"> </span><span class="kw">unique</span>(x)
+  the_mode &lt;-<span class="st"> </span>ux[<span class="kw">which.max</span>(<span class="kw">tabulate</span>(<span class="kw">match</span>(x, ux)))]
+  <span class="kw">list</span>(the_mode, <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span>the_mode)) 
+}
+
+re_list &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">map</span>(fk_df, Mode_and_freq)
+
+result_df_<span class="dv">2</span> &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">v_name =</span> <span class="kw">names</span>(re_list)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_mode =</span> <span class="kw">map_chr</span>(re_list, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
+         <span class="dt">the_freq =</span> <span class="kw">map_int</span>(re_list, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]))
+ 
+result_df_<span class="dv">2</span></code></pre></div>
+<pre><code>##   v_name the_mode the_freq
+## 1    sex        M       54
+## 2    age       24       17
+## 3  score        C       26</code></pre>
 <p><strong>Example 3</strong>: This is another example to use <code>sapply</code> (or <code>lapply()</code>). We want to split the words and descriptions in a dictionary.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 

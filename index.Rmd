@@ -556,6 +556,38 @@ result_df <-
 result_df  
 ```
 
+Or, we use the following code:
+```{r}
+library(dplyr)
+library(purrr)
+
+set.seed(12022018)
+
+fk_df <- 
+  # using data_frame rather than data.frame, for dealing with "negative" factor effect
+  data_frame(sex = sample(c("M", "F"), 100, replace = TRUE),
+             age = sample(19:25, 100, replace = TRUE),
+             score = sample(LETTERS[1:4], 100, replace = TRUE))
+
+# modified Mode function
+# https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode
+Mode_and_freq <- function(x) {
+  ux <- unique(x)
+  the_mode <- ux[which.max(tabulate(match(x, ux)))]
+  list(the_mode, sum(x == the_mode)) 
+}
+
+re_list <- 
+  map(fk_df, Mode_and_freq)
+
+result_df_2 <- 
+  data.frame(v_name = names(re_list)) %>% 
+  mutate(the_mode = map_chr(re_list, function(x) x[[1]]),
+         the_freq = map_int(re_list, function(x) x[[2]]))
+ 
+result_df_2
+```
+
 
 **Example 3**: This is another example to use `sapply` (or `lapply()`). We want to split the words and descriptions in a dictionary.
 
