@@ -666,6 +666,74 @@ fk_df
 ```
 
 
+## Regular expressions basic
+
+**Metacharacters**
+
+- `\`: for escaping
+- `^`: begin with power
+- `$`: end with money
+- `+`: one or more characters (greedy extension)
+- `*`: zero or more characters (greedy extension)
+- `.`: wildcard; often used as `.+`, which means "one or more characters", and `.*`, which means "zero or more characters".
+- `\S`: non-space character
+- `\s`: a white space
+- `[0-9]`: single digit
+- `[a-z]`: single lowercase letter
+- `[A-Z]`: single uppercase letter
+- `()`: extract particular sub string, e.g. `(p|P)`, which means "p" or "P"
+
+**NB:** Inside a square bracket, a period is a period
+
+**Examples:**
+
+```{r, warning=FALSE, message=FALSE}
+library(stringr)
+library(dplyr)
+
+# task 1 ------------------------------------------------------------------
+## based on: 
+## https://www.r-bloggers.com/regular-expressions-every-r-programmer-should-know/
+
+files = c(
+  "tmp-project.csv", "project.csv", 
+  "project2-csv-specs.csv", "project2.csv2.specs.xlsx", 
+  "project_cars.ods", "project-houses.csv", 
+  "Project_Trees.csv","project-cars.R",
+  "project-houses.r", "project-final.xls", 
+  "Project-final2.xlsx")
+
+# We want to grab the files “project_cars.ods”, “project-houses.csv” and 
+# “Project_Trees.csv”. 
+
+(the_flag <- str_detect(files, "^(P|p)roject(_|-)[a-zA-Z]*\\.(ods|csv)$"))
+(the_re <- str_subset(files, "^(P|p)roject(_|-)[a-zA-Z]*\\.(ods|csv)$"))
+
+
+# task 2 ------------------------------------------------------------------
+## remove prefix "U_"
+
+a_df <- 
+  data.frame(x = c(letters[1:5], "U_", "9", NA)) %>% 
+  mutate(y = paste0("U_", x)) %>% 
+  mutate(z = gsub("^U_", "", y))
+
+
+# task 3 ------------------------------------------------------------------
+## remove suffix ".xlsx"
+
+b_df <- 
+  data.frame(file_name = files) %>% 
+  mutate(new_file_name = gsub("\\.xlsx", "", file_name))
+
+
+
+```
+
+
+
+
+
 # Tricky plotting
 
 ## Bar charts
