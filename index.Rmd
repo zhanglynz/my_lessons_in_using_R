@@ -255,6 +255,15 @@ c_table <-
 
 (c_table)
 ```
+Or, we can use `semi_join()`.
+```{r, warning=FALSE, message=FALSE}
+c_table <-
+  a_table %>% 
+  semi_join(b_table, by = "x")
+
+(c_table)
+```
+
 
 **Example 2:**
 ```{r, warning=FALSE, message=FALSE}

@@ -282,6 +282,18 @@ c_table &lt;-
 ## 1 a         1
 ## 2 b         2
 ## 3 c         3</code></pre>
+<p>Or, we can use <code>semi_join()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_table &lt;-
+<span class="st">  </span>a_table <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">semi_join</span>(b_table, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)
+
+(c_table)</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   x         y
+##   &lt;chr&gt; &lt;int&gt;
+## 1 a         1
+## 2 b         2
+## 3 c         3</code></pre>
 <p><strong>Example 2:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_table &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
 d_table &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>), 
