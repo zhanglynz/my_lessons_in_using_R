@@ -100,13 +100,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="small-lessons.html"><a href="small-lessons.html"><i class="fa fa-check"></i><b>1</b> Small lessons</a><ul>
-<li class="chapter" data-level="1.1" data-path="small-lessons.html"><a href="small-lessons.html#always-use-na.rm-true"><i class="fa fa-check"></i><b>1.1</b> Always use <code>na.rm = TRUE</code></a></li>
-<li class="chapter" data-level="1.2" data-path="small-lessons.html"><a href="small-lessons.html#always-use-seq_along"><i class="fa fa-check"></i><b>1.2</b> Always use <code>seq_along</code></a></li>
-<li class="chapter" data-level="1.3" data-path="small-lessons.html"><a href="small-lessons.html#always-use-drop-false"><i class="fa fa-check"></i><b>1.3</b> Always use <code>drop = FALSE</code></a></li>
-<li class="chapter" data-level="1.4" data-path="small-lessons.html"><a href="small-lessons.html#always-use-dir.create"><i class="fa fa-check"></i><b>1.4</b> Always use <code>dir.create()</code></a></li>
-<li class="chapter" data-level="1.5" data-path="small-lessons.html"><a href="small-lessons.html#leap-year-problem"><i class="fa fa-check"></i><b>1.5</b> Leap year problem</a></li>
-<li class="chapter" data-level="1.6" data-path="small-lessons.html"><a href="small-lessons.html#na-may-cause-troubles"><i class="fa fa-check"></i><b>1.6</b> NA may cause troubles</a></li>
-<li class="chapter" data-level="1.7" data-path="small-lessons.html"><a href="small-lessons.html#using-tidyrspread"><i class="fa fa-check"></i><b>1.7</b> using <code>tidyr::spread()</code></a></li>
+<li class="chapter" data-level="1.1" data-path="small-lessons.html"><a href="small-lessons.html#always-use-stringsasfactors-false"><i class="fa fa-check"></i><b>1.1</b> Always use <code>stringsAsFactors = FALSE</code></a></li>
+<li class="chapter" data-level="1.2" data-path="small-lessons.html"><a href="small-lessons.html#always-use-na.rm-true"><i class="fa fa-check"></i><b>1.2</b> Always use <code>na.rm = TRUE</code></a></li>
+<li class="chapter" data-level="1.3" data-path="small-lessons.html"><a href="small-lessons.html#always-use-seq_along"><i class="fa fa-check"></i><b>1.3</b> Always use <code>seq_along</code></a></li>
+<li class="chapter" data-level="1.4" data-path="small-lessons.html"><a href="small-lessons.html#always-use-drop-false"><i class="fa fa-check"></i><b>1.4</b> Always use <code>drop = FALSE</code></a></li>
+<li class="chapter" data-level="1.5" data-path="small-lessons.html"><a href="small-lessons.html#always-use-dir.create"><i class="fa fa-check"></i><b>1.5</b> Always use <code>dir.create()</code></a></li>
+<li class="chapter" data-level="1.6" data-path="small-lessons.html"><a href="small-lessons.html#leap-year-problem"><i class="fa fa-check"></i><b>1.6</b> Leap year problem</a></li>
+<li class="chapter" data-level="1.7" data-path="small-lessons.html"><a href="small-lessons.html#na-may-cause-troubles"><i class="fa fa-check"></i><b>1.7</b> NA may cause troubles</a></li>
+<li class="chapter" data-level="1.8" data-path="small-lessons.html"><a href="small-lessons.html#using-tidyrspread"><i class="fa fa-check"></i><b>1.8</b> using <code>tidyr::spread()</code></a></li>
+<li class="chapter" data-level="1.9" data-path="small-lessons.html"><a href="small-lessons.html#prefix-and-suffix"><i class="fa fa-check"></i><b>1.9</b> Prefix and suffix</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a><ul>
 <li class="chapter" data-level="2.1" data-path="big-lessons.html"><a href="big-lessons.html#counting-is-not-that-easy"><i class="fa fa-check"></i><b>2.1</b> Counting is not that easy</a></li>
@@ -140,8 +142,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="small-lessons" class="section level1">
 <h1><span class="header-section-number">1</span> Small lessons</h1>
+<div id="always-use-stringsasfactors-false" class="section level2">
+<h2><span class="header-section-number">1.1</span> Always use <code>stringsAsFactors = FALSE</code></h2>
+<p>When use <code>data.frame</code> to create a dataframe, always use <code>stringsAsFactors = FALSE</code>, otherwise some <em>facotr</em> variable may cause unexpected troubles.</p>
+</div>
 <div id="always-use-na.rm-true" class="section level2">
-<h2><span class="header-section-number">1.1</span> Always use <code>na.rm = TRUE</code></h2>
+<h2><span class="header-section-number">1.2</span> Always use <code>na.rm = TRUE</code></h2>
 <p>The following code is correct in terms of syntax, but it does not give the result that we expect.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="ot">NA</span>, <span class="dv">4</span>)
 (y &lt;-<span class="st"> </span><span class="kw">sum</span>(x))</code></pre></div>
@@ -152,7 +158,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 10</code></pre>
 </div>
 <div id="always-use-seq_along" class="section level2">
-<h2><span class="header-section-number">1.2</span> Always use <code>seq_along</code></h2>
+<h2><span class="header-section-number">1.3</span> Always use <code>seq_along</code></h2>
 <p>Sometime ago, I often write in my program something like</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s &lt;-<span class="st"> </span><span class="dv">0</span>
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
@@ -161,7 +167,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(x)) s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
 </div>
 <div id="always-use-drop-false" class="section level2">
-<h2><span class="header-section-number">1.3</span> Always use <code>drop = FALSE</code></h2>
+<h2><span class="header-section-number">1.4</span> Always use <code>drop = FALSE</code></h2>
 <p>Let’s look at the following example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">3</span>)
 y1 &lt;-<span class="st"> </span>x[<span class="op">-</span><span class="dv">1</span>, ]
@@ -189,16 +195,16 @@ y3 &lt;-<span class="st"> </span>x[<span class="op">-</span><span class="kw">c</
 <p>Note that <code>y3</code> is a matrix of 0 rows and 3 columns. <code>y3</code> is not a real matrix in the mathematical sense but it is a legal one in <strong>R</strong>.</p>
 </div>
 <div id="always-use-dir.create" class="section level2">
-<h2><span class="header-section-number">1.4</span> Always use <code>dir.create()</code></h2>
+<h2><span class="header-section-number">1.5</span> Always use <code>dir.create()</code></h2>
 <p>I have the habit of creating folders by hand, but for writing programs that will be used by other people we should always do the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span><span class="kw">dir.exists</span>(<span class="st">&quot;./Folder-name&quot;</span>)) <span class="kw">dir.create</span>(<span class="st">&quot;./Folder-name&quot;</span>)</code></pre></div>
 </div>
 <div id="leap-year-problem" class="section level2">
-<h2><span class="header-section-number">1.5</span> Leap year problem</h2>
+<h2><span class="header-section-number">1.6</span> Leap year problem</h2>
 <p>Suppose we want to get data from today back to three years ago from a database; we may write code like the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
 (query_start &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>))</code></pre></div>
-<pre><code>## [1] &quot;2016-04-25&quot;</code></pre>
+<pre><code>## [1] &quot;2016-06-09&quot;</code></pre>
 <p>The code are OK most of time, but we will be in trouble if today is February 29, 2016. Let’s see following code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(query_start &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>))</code></pre></div>
 <pre><code>## [1] NA</code></pre>
@@ -210,10 +216,10 @@ m_d &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class=
 } <span class="cf">else</span> { 
   query_start &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>) }
 (query_start)</code></pre></div>
-<pre><code>## [1] &quot;2016-04-25&quot;</code></pre>
+<pre><code>## [1] &quot;2016-06-09&quot;</code></pre>
 </div>
 <div id="na-may-cause-troubles" class="section level2">
-<h2><span class="header-section-number">1.6</span> NA may cause troubles</h2>
+<h2><span class="header-section-number">1.7</span> NA may cause troubles</h2>
 <p>We must be very cautious when we are dealing with NA’s. The following code looked OK, but it does not give what we expect.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 
@@ -233,7 +239,7 @@ b_df &lt;-
 <p>because we want to keep the rows where <code>x</code> is <code>NA</code>.</p>
 </div>
 <div id="using-tidyrspread" class="section level2">
-<h2><span class="header-section-number">1.7</span> using <code>tidyr::spread()</code></h2>
+<h2><span class="header-section-number">1.8</span> using <code>tidyr::spread()</code></h2>
 <p>I saw an example from <a href="https://www.r-bloggers.com/workaround-for-tidyrspread-with-duplicate-row-identifiers/" class="uri">https://www.r-bloggers.com/workaround-for-tidyrspread-with-duplicate-row-identifiers/</a>, and I created a new example by tweaking the original one.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
 <span class="kw">library</span>(dplyr)
@@ -242,11 +248,11 @@ long_table &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
                          <span class="dt">gender =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
 (long_table)</code></pre></div>
 <pre><code>##   age gender
-## 1  20      m
-## 2  28      f
-## 3  27      m
-## 4  24      f
-## 5  23      m</code></pre>
+## 1  23      f
+## 2  19      m
+## 3  24      f
+## 4  17      f
+## 5  28      m</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## this does not work
 
 <span class="co"># wide_table &lt;-</span>
@@ -263,11 +269,47 @@ wide_table &lt;-
 
 (wide_table)</code></pre></div>
 <pre><code>##    f  m
-## 1 24 NA
-## 2 28 NA
-## 3 NA 20
-## 4 NA 27
-## 5 NA 23</code></pre>
+## 1 17 NA
+## 2 23 NA
+## 3 24 NA
+## 4 NA 19
+## 5 NA 28</code></pre>
+</div>
+<div id="prefix-and-suffix" class="section level2">
+<h2><span class="header-section-number">1.9</span> Prefix and suffix</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(stringr)
+
+fake_data &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">paste0</span>(<span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>), 
+                        <span class="st">&quot;_&quot;</span>,
+                        <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+                        <span class="st">&quot;_&quot;</span>,
+                        <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>), <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)),
+             <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))
+
+new_df &lt;-
+<span class="st">  </span>fake_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_prefix =</span> <span class="kw">str_extract</span>(x, <span class="st">&quot;^[a-zA-Z]+[_]&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_prefix =</span> <span class="kw">gsub</span>(<span class="st">&quot;_&quot;</span>, <span class="st">&quot;&quot;</span>, the_prefix, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rev_x =</span> stringi<span class="op">::</span><span class="kw">stri_reverse</span>(x)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_suffix =</span> <span class="kw">str_extract</span>(rev_x, <span class="st">&quot;^[a-zA-Z]+[_]&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_suffix =</span> <span class="kw">gsub</span>(<span class="st">&quot;_&quot;</span>, <span class="st">&quot;&quot;</span>, the_suffix, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_suffix =</span> stringi<span class="op">::</span><span class="kw">stri_reverse</span>(the_suffix)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>rev_x)
+
+new_df</code></pre></div>
+<pre><code>##          x          y the_prefix the_suffix
+## 1   b_6_aa  1.9464011          b         aa
+## 2   c_6_cc  1.4600576          c         cc
+## 3   a_3_bb  0.1786452          a         bb
+## 4   a_2_cc -1.0130333          a         cc
+## 5   b_6_bb -0.9657124          b         bb
+## 6   c_2_aa -0.4061155          c         aa
+## 7  a_10_aa -1.0258233          a         aa
+## 8   c_6_aa -0.1332388          c         aa
+## 9   a_4_bb  0.3718977          a         bb
+## 10  a_5_bb  0.5737719          a         bb</code></pre>
 </div>
 </div>
             </section>

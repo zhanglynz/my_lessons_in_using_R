@@ -27,6 +27,10 @@ To be written. "Failures teach success."
 
 # Small lessons
 
+## Always use `stringsAsFactors = FALSE`
+
+When use `data.frame` to create a dataframe, always use `stringsAsFactors = FALSE`, otherwise some *facotr* variable may cause unexpected troubles.
+
 ## Always use `na.rm = TRUE`
 
 The following code is correct in terms of syntax, but it does not give the result that we expect.
@@ -169,6 +173,32 @@ wide_table <-
 ```
 
 
+## Prefix and suffix
+ 
+```{r,  warning=FALSE, message=FALSE}
+library(dplyr)
+library(stringr)
+
+fake_data <- 
+  data.frame(x = paste0(sample(letters[1:3], 10, replace = TRUE), 
+                        "_",
+                        sample(1:10, 10, replace = TRUE),
+                        "_",
+                        sample(c("aa", "bb", "cc"), 10, replace = TRUE)),
+             y = rnorm(10))
+
+new_df <-
+  fake_data %>%
+  mutate(the_prefix = str_extract(x, "^[a-zA-Z]+[_]")) %>%
+  mutate(the_prefix = gsub("_", "", the_prefix, fixed = TRUE)) %>%  
+  mutate(rev_x = stringi::stri_reverse(x)) %>%
+  mutate(the_suffix = str_extract(rev_x, "^[a-zA-Z]+[_]")) %>%
+  mutate(the_suffix = gsub("_", "", the_suffix, fixed = TRUE)) %>% 
+  mutate(the_suffix = stringi::stri_reverse(the_suffix)) %>% 
+  select(-rev_x)
+
+new_df
+```
  
 
  
