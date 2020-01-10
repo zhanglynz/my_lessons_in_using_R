@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a><ul>
 <li class="chapter" data-level="2.1" data-path="big-lessons.html"><a href="big-lessons.html#counting-is-not-that-easy"><i class="fa fa-check"></i><b>2.1</b> Counting is not that easy</a></li>
 <li class="chapter" data-level="2.2" data-path="big-lessons.html"><a href="big-lessons.html#joining-tables-be-careful"><i class="fa fa-check"></i><b>2.2</b> Joining tables, be careful!</a></li>
+<li class="chapter" data-level="2.3" data-path="big-lessons.html"><a href="big-lessons.html#using-group_by-and-arrange"><i class="fa fa-check"></i><b>2.3</b> Using <code>group_by</code> and <code>arrange</code></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
@@ -316,6 +317,86 @@ e_table &lt;-
 ## 6 d         4    NA
 ## 7 e         5    NA</code></pre>
 <p>Note that values of <code>x</code> in <code>e_table</code> are not unique and <code>e_table</code> has more rows than <code>a_table</code>.</p>
+</div>
+<div id="using-group_by-and-arrange" class="section level2">
+<h2><span class="header-section-number">2.3</span> Using <code>group_by</code> and <code>arrange</code></h2>
+<p>“grouped <code>arrange()</code> is the same as ungrouped; unless you set <code>.by_group = TRUE</code>, in which case it orders first by the grouping variables” (<a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">Introduction to dplyr</a>)</p>
+<p>The following example shows the difference between using <code>.by_group = TRUE</code> and withou using it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x)
+{n &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(x))
+ <span class="cf">if</span>(n <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">return</span>(x)
+ L &lt;-<span class="st"> </span><span class="kw">length</span>(x)
+ x[(L<span class="op">+</span><span class="dv">1</span><span class="op">-</span>n)<span class="op">:</span>L] &lt;-<span class="st"> </span>x[L<span class="op">-</span>n] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)
+ <span class="kw">return</span>(x)
+}
+
+temp_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])
+L &lt;-<span class="st"> </span><span class="kw">length</span>(temp_v)
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> temp_v,
+                 <span class="dt">y =</span> <span class="kw">c</span>((L<span class="op">-</span><span class="dv">3</span>)<span class="op">:</span><span class="dv">1</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))
+
+(df)</code></pre></div>
+<pre><code>##    x  y
+## 1  a  7
+## 2  b  6
+## 3  a  5
+## 4  b  4
+## 5  c  3
+## 6  b  2
+## 7  c  1
+## 8  a NA
+## 9  b NA
+## 10 c NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># frist attempt, without using .by_group = TRUE</span>
+<span class="co"># surprisingly (goo!) we can get what we want</span>
+df_new_<span class="dv">1</span> &lt;-<span class="st"> </span>
+<span class="st">  </span>df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(x) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(y,) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z =</span> <span class="kw">my_func</span>(y))
+
+(df_new_<span class="dv">1</span>)</code></pre></div>
+<pre><code>## # A tibble: 10 x 3
+## # Groups:   x [3]
+##    x         y     z
+##    &lt;fct&gt; &lt;int&gt; &lt;int&gt;
+##  1 c         1     1
+##  2 b         2     2
+##  3 c         3     3
+##  4 b         4     4
+##  5 a         5     5
+##  6 b         6     6
+##  7 a         7     7
+##  8 a        NA     8
+##  9 b        NA     7
+## 10 c        NA     4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># second try, using .by_group = TRUE</span>
+<span class="co"># this is the code supposed to be</span>
+df_new_<span class="dv">2</span> &lt;-<span class="st"> </span>
+<span class="st">  </span>df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(x) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(y, <span class="dt">.by_group =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z =</span> <span class="kw">my_func</span>(y))
+
+(df_new_<span class="dv">2</span>)</code></pre></div>
+<pre><code>## # A tibble: 10 x 3
+## # Groups:   x [3]
+##    x         y     z
+##    &lt;fct&gt; &lt;int&gt; &lt;int&gt;
+##  1 a         5     5
+##  2 a         7     7
+##  3 a        NA     8
+##  4 b         2     2
+##  5 b         4     4
+##  6 b         6     6
+##  7 b        NA     7
+##  8 c         1     1
+##  9 c         3     3
+## 10 c        NA     4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(<span class="kw">arrange</span>(df_new_<span class="dv">1</span>, x), df_new_<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
             </section>

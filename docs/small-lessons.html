@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a><ul>
 <li class="chapter" data-level="2.1" data-path="big-lessons.html"><a href="big-lessons.html#counting-is-not-that-easy"><i class="fa fa-check"></i><b>2.1</b> Counting is not that easy</a></li>
 <li class="chapter" data-level="2.2" data-path="big-lessons.html"><a href="big-lessons.html#joining-tables-be-careful"><i class="fa fa-check"></i><b>2.2</b> Joining tables, be careful!</a></li>
+<li class="chapter" data-level="2.3" data-path="big-lessons.html"><a href="big-lessons.html#using-group_by-and-arrange"><i class="fa fa-check"></i><b>2.3</b> Using <code>group_by</code> and <code>arrange</code></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
@@ -204,7 +205,7 @@ y3 &lt;-<span class="st"> </span>x[<span class="op">-</span><span class="kw">c</
 <p>Suppose we want to get data from today back to three years ago from a database; we may write code like the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
 (query_start &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>))</code></pre></div>
-<pre><code>## [1] &quot;2016-06-09&quot;</code></pre>
+<pre><code>## [1] &quot;2017-01-11&quot;</code></pre>
 <p>The code are OK most of time, but we will be in trouble if today is February 29, 2016. Let’s see following code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(query_start &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>))</code></pre></div>
 <pre><code>## [1] NA</code></pre>
@@ -216,7 +217,7 @@ m_d &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class=
 } <span class="cf">else</span> { 
   query_start &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">3</span>) }
 (query_start)</code></pre></div>
-<pre><code>## [1] &quot;2016-06-09&quot;</code></pre>
+<pre><code>## [1] &quot;2017-01-11&quot;</code></pre>
 </div>
 <div id="na-may-cause-troubles" class="section level2">
 <h2><span class="header-section-number">1.7</span> NA may cause troubles</h2>
@@ -248,11 +249,11 @@ long_table &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
                          <span class="dt">gender =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
 (long_table)</code></pre></div>
 <pre><code>##   age gender
-## 1  23      f
-## 2  19      m
-## 3  24      f
-## 4  17      f
-## 5  28      m</code></pre>
+## 1  21      f
+## 2  15      f
+## 3  17      f
+## 4  20      f
+## 5  24      m</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## this does not work
 
 <span class="co"># wide_table &lt;-</span>
@@ -269,11 +270,11 @@ wide_table &lt;-
 
 (wide_table)</code></pre></div>
 <pre><code>##    f  m
-## 1 17 NA
-## 2 23 NA
-## 3 24 NA
-## 4 NA 19
-## 5 NA 28</code></pre>
+## 1 15 NA
+## 2 17 NA
+## 3 20 NA
+## 4 21 NA
+## 5 NA 24</code></pre>
 </div>
 <div id="prefix-and-suffix" class="section level2">
 <h2><span class="header-section-number">1.9</span> Prefix and suffix</h2>
@@ -299,17 +300,17 @@ new_df &lt;-
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>rev_x)
 
 new_df</code></pre></div>
-<pre><code>##          x          y the_prefix the_suffix
-## 1   b_6_aa  1.9464011          b         aa
-## 2   c_6_cc  1.4600576          c         cc
-## 3   a_3_bb  0.1786452          a         bb
-## 4   a_2_cc -1.0130333          a         cc
-## 5   b_6_bb -0.9657124          b         bb
-## 6   c_2_aa -0.4061155          c         aa
-## 7  a_10_aa -1.0258233          a         aa
-## 8   c_6_aa -0.1332388          c         aa
-## 9   a_4_bb  0.3718977          a         bb
-## 10  a_5_bb  0.5737719          a         bb</code></pre>
+<pre><code>##         x           y the_prefix the_suffix
+## 1  c_7_cc -0.41447442          c         cc
+## 2  c_4_cc  0.01251877          c         cc
+## 3  c_6_cc -2.23641570          c         cc
+## 4  c_3_cc  1.05672164          c         cc
+## 5  b_6_bb  0.75165564          b         bb
+## 6  a_1_bb -0.45542375          a         bb
+## 7  c_1_cc -0.32517710          c         cc
+## 8  b_9_aa -1.92516386          b         aa
+## 9  a_5_aa  0.03327175          a         aa
+## 10 a_4_aa -0.33057236          a         aa</code></pre>
 </div>
 </div>
             </section>
