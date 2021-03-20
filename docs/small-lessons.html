@@ -250,10 +250,10 @@ long_table &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
                          <span class="dt">gender =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
 (long_table)</code></pre></div>
 <pre><code>##   age gender
-## 1  24      m
-## 2  27      m
-## 3  28      m
-## 4  21      f
+## 1  24      f
+## 2  22      m
+## 3  15      m
+## 4  21      m
 ## 5  16      f</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## this does not work
 
@@ -272,10 +272,10 @@ wide_table &lt;-
 (wide_table)</code></pre></div>
 <pre><code>##    f  m
 ## 1 16 NA
-## 2 21 NA
-## 3 NA 24
-## 4 NA 27
-## 5 NA 28</code></pre>
+## 2 24 NA
+## 3 NA 22
+## 4 NA 15
+## 5 NA 21</code></pre>
 </div>
 <div id="prefix-and-suffix" class="section level2">
 <h2><span class="header-section-number">1.9</span> Prefix and suffix</h2>
@@ -301,17 +301,17 @@ new_df &lt;-
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>rev_x)
 
 new_df</code></pre></div>
-<pre><code>##         x           y the_prefix the_suffix
-## 1  a_9_cc  0.76431177          a         cc
-## 2  a_7_aa -0.04601007          a         aa
-## 3  b_6_bb  0.51371564          b         bb
-## 4  a_7_bb -0.27063023          a         bb
-## 5  a_8_aa -0.33177523          a         aa
-## 6  b_4_aa -0.01735982          b         aa
-## 7  a_4_bb -0.76250077          a         bb
-## 8  c_3_cc  0.40885810          c         cc
-## 9  b_9_cc -0.95300011          b         cc
-## 10 b_2_cc -1.95906362          b         cc</code></pre>
+<pre><code>##          x          y the_prefix the_suffix
+## 1   c_1_aa -0.3730275          c         aa
+## 2   c_3_bb  1.3707480          c         bb
+## 3  b_10_cc -1.8752222          b         cc
+## 4   a_3_aa  1.1407914          a         aa
+## 5   a_8_bb  0.3762980          a         bb
+## 6   c_1_aa -1.1834573          c         aa
+## 7   c_4_cc  1.6106747          c         cc
+## 8   a_7_cc  0.4026458          a         cc
+## 9   a_6_cc -0.8096230          a         cc
+## 10 a_10_bb -0.3568480          a         bb</code></pre>
 </div>
 </div>
             </section>
