@@ -93,6 +93,16 @@ I have the habit of creating folders by hand, but for writing programs that will
 if(!dir.exists("./Folder-name")) dir.create("./Folder-name")
 ```
 
+## Using `as.character()`, be careful
+```{r}
+(y <- seq(100000, 500000, by = 100000))
+(y_ch <- as.character(y))
+(nchar(y_ch)) # returns 5
+
+(y_ch_a <- format(y, scientific = FALSE))
+(nchar(y_ch_a))
+```
+
 
 
 ## Leap year problem
