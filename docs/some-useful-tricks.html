@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>The lessons I learned in using R</title>
-  <meta name="description" content="The lessons I learned in using R">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Some useful tricks | The lessons I learned in using R</title>
+  <meta name="description" content="3 Some useful tricks | The lessons I learned in using R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The lessons I learned in using R" />
+  <meta property="og:title" content="3 Some useful tricks | The lessons I learned in using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,28 +16,32 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The lessons I learned in using R" />
+  <meta name="twitter:title" content="3 Some useful tricks | The lessons I learned in using R" />
   
   
   
 
-<meta name="author" content="Lingyun Zhang">
+<meta name="author" content="Lingyun Zhang" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="big-lessons.html">
-<link rel="next" href="tricky-plotting.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="big-lessons.html"/>
+<link rel="next" href="tricky-plotting.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -46,45 +49,76 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 </head>
 
@@ -99,7 +133,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="small-lessons.html"><a href="small-lessons.html"><i class="fa fa-check"></i><b>1</b> Small lessons</a><ul>
+<li class="chapter" data-level="1" data-path="small-lessons.html"><a href="small-lessons.html"><i class="fa fa-check"></i><b>1</b> Small lessons</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="small-lessons.html"><a href="small-lessons.html#always-use-stringsasfactors-false"><i class="fa fa-check"></i><b>1.1</b> Always use <code>stringsAsFactors = FALSE</code></a></li>
 <li class="chapter" data-level="1.2" data-path="small-lessons.html"><a href="small-lessons.html#always-use-na.rm-true"><i class="fa fa-check"></i><b>1.2</b> Always use <code>na.rm = TRUE</code></a></li>
 <li class="chapter" data-level="1.3" data-path="small-lessons.html"><a href="small-lessons.html#always-use-seq_along"><i class="fa fa-check"></i><b>1.3</b> Always use <code>seq_along</code></a></li>
@@ -111,18 +146,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.9" data-path="small-lessons.html"><a href="small-lessons.html#using-tidyrspread"><i class="fa fa-check"></i><b>1.9</b> using <code>tidyr::spread()</code></a></li>
 <li class="chapter" data-level="1.10" data-path="small-lessons.html"><a href="small-lessons.html#prefix-and-suffix"><i class="fa fa-check"></i><b>1.10</b> Prefix and suffix</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a><ul>
+<li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="big-lessons.html"><a href="big-lessons.html#counting-is-not-that-easy"><i class="fa fa-check"></i><b>2.1</b> Counting is not that easy</a></li>
 <li class="chapter" data-level="2.2" data-path="big-lessons.html"><a href="big-lessons.html#joining-tables-be-careful"><i class="fa fa-check"></i><b>2.2</b> Joining tables, be careful!</a></li>
 <li class="chapter" data-level="2.3" data-path="big-lessons.html"><a href="big-lessons.html#using-group_by-and-arrange"><i class="fa fa-check"></i><b>2.3</b> Using <code>group_by</code> and <code>arrange</code></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
+<li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
 <li class="chapter" data-level="3.2" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#dplyr-programming"><i class="fa fa-check"></i><b>3.2</b> dplyr programming</a></li>
 <li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-and-map-family-of-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> and <code>map</code> family of functions</a></li>
 <li class="chapter" data-level="3.4" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#regular-expressions-basic"><i class="fa fa-check"></i><b>3.4</b> Regular expressions basic</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tricky-plotting.html"><a href="tricky-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricky plotting</a><ul>
+<li class="chapter" data-level="4" data-path="tricky-plotting.html"><a href="tricky-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricky plotting</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="tricky-plotting.html"><a href="tricky-plotting.html#bar-charts"><i class="fa fa-check"></i><b>4.1</b> Bar charts</a></li>
 </ul></li>
 </ul>
@@ -142,82 +180,82 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="some-useful-tricks" class="section level1">
+<div id="some-useful-tricks" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Some useful tricks</h1>
-<div id="removing-rows-under-constraints" class="section level2">
+<div id="removing-rows-under-constraints" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Removing rows under constraints</h2>
 <p>We discuss two cases.</p>
 <p><strong>Case 1</strong>: removing rows that contain NA. For this case, we can use <code>na.omit()</code> or <code>complete.cases()</code>. Let us see the following example.</p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>),
-             <span class="dt">y =</span> <span class="kw">c</span>(<span class="kw">runif</span>(<span class="dv">5</span>), <span class="ot">NA</span>),
-             <span class="dt">z =</span> <span class="kw">c</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="ot">NA</span>, LETTERS[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]))
-(a_df)</code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="some-useful-tricks.html#cb76-1" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> </span>
+<span id="cb76-2"><a href="some-useful-tricks.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>),</span>
+<span id="cb76-3"><a href="some-useful-tricks.html#cb76-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">5</span>), <span class="cn">NA</span>),</span>
+<span id="cb76-4"><a href="some-useful-tricks.html#cb76-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">z =</span> <span class="fu">c</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="cn">NA</span>, LETTERS[<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>]))</span>
+<span id="cb76-5"><a href="some-useful-tricks.html#cb76-5" aria-hidden="true" tabindex="-1"></a>(a_df)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
-##   x          y z    
-##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
-## 1 a      0.217 A    
-## 2 &lt;NA&gt;   0.935 B    
-## 3 b      0.869 C    
-## 4 d      0.480 &lt;NA&gt; 
-## 5 e      0.725 E    
-## 6 f     NA     F</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using na.omit to remove rows that have NA</span>
-b_df &lt;-<span class="st"> </span>
-<span class="st">  </span>a_df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">na.omit</span>()
-(b_df)</code></pre></div>
+##   x           y z    
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;
+## 1 a      0.539  A    
+## 2 &lt;NA&gt;   0.702  B    
+## 3 b      0.214  C    
+## 4 d      0.0648 &lt;NA&gt; 
+## 5 e      0.618  E    
+## 6 f     NA      F</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="some-useful-tricks.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using na.omit to remove rows that have NA</span></span>
+<span id="cb78-2"><a href="some-useful-tricks.html#cb78-2" aria-hidden="true" tabindex="-1"></a>b_df <span class="ot">&lt;-</span> </span>
+<span id="cb78-3"><a href="some-useful-tricks.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  a_df <span class="sc">%&gt;%</span> </span>
+<span id="cb78-4"><a href="some-useful-tricks.html#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb78-5"><a href="some-useful-tricks.html#cb78-5" aria-hidden="true" tabindex="-1"></a>(b_df)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   x         y z    
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.217 A    
-## 2 b     0.869 C    
-## 3 e     0.725 E</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or using complete.cases</span>
-c_df &lt;-<span class="st"> </span>
-<span class="st">  </span>a_df[<span class="kw">complete.cases</span>(a_df) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ] 
-(c_df)</code></pre></div>
+## 1 a     0.539 A    
+## 2 b     0.214 C    
+## 3 e     0.618 E</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="some-useful-tricks.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or using complete.cases</span></span>
+<span id="cb80-2"><a href="some-useful-tricks.html#cb80-2" aria-hidden="true" tabindex="-1"></a>c_df <span class="ot">&lt;-</span> </span>
+<span id="cb80-3"><a href="some-useful-tricks.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  a_df[<span class="fu">complete.cases</span>(a_df) <span class="sc">==</span> <span class="cn">TRUE</span>, ] </span>
+<span id="cb80-4"><a href="some-useful-tricks.html#cb80-4" aria-hidden="true" tabindex="-1"></a>(c_df)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   x         y z    
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 a     0.217 A    
-## 2 b     0.869 C    
-## 3 e     0.725 E</code></pre>
-<p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
+## 1 a     0.539 A    
+## 2 b     0.214 C    
+## 3 e     0.618 E</code></pre>
+<p><strong>Case 2</strong>: removing rows contain some a specific symbol, e.g. “ZZZ”. Here the trick is to use <code>rlang::sym</code>.</p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-a_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;ZZZ&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>),
-             <span class="dt">y =</span> <span class="kw">c</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="st">&quot;ZZZ&quot;</span>),
-             <span class="dt">z =</span> <span class="kw">c</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="st">&quot;ZZZ&quot;</span>, LETTERS[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]),
-             <span class="dt">w =</span> <span class="kw">rnorm</span>(<span class="dv">6</span>))
-(a_df)</code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="some-useful-tricks.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb82-2"><a href="some-useful-tricks.html#cb82-2" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> </span>
+<span id="cb82-3"><a href="some-useful-tricks.html#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;ZZZ&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>),</span>
+<span id="cb82-4"><a href="some-useful-tricks.html#cb82-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">c</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="st">&quot;ZZZ&quot;</span>),</span>
+<span id="cb82-5"><a href="some-useful-tricks.html#cb82-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">z =</span> <span class="fu">c</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="st">&quot;ZZZ&quot;</span>, LETTERS[<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>]),</span>
+<span id="cb82-6"><a href="some-useful-tricks.html#cb82-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">w =</span> <span class="fu">rnorm</span>(<span class="dv">6</span>))</span>
+<span id="cb82-7"><a href="some-useful-tricks.html#cb82-7" aria-hidden="true" tabindex="-1"></a>(a_df)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   x     y     z          w
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A     -0.699
-## 2 ZZZ   b     B     -0.559
-## 3 b     c     C     -1.32 
-## 4 d     d     ZZZ    0.610
-## 5 e     e     E      0.406
-## 6 f     ZZZ   F     -0.637</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">colnames</span>(a_df)
-b_df &lt;-<span class="st"> </span>a_df
-<span class="cf">for</span>(col <span class="cf">in</span> cols)
-{b_df &lt;-
-<span class="st">  </span><span class="kw">filter</span>(b_df, (<span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(col)) <span class="op">!=</span><span class="st"> &quot;ZZZ&quot;</span>)
-}
-(b_df)</code></pre></div>
+## 1 a     a     A     -0.208
+## 2 ZZZ   b     B     -1.29 
+## 3 b     c     C      1.13 
+## 4 d     d     ZZZ   -0.938
+## 5 e     e     E     -0.676
+## 6 f     ZZZ   F      1.51</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="some-useful-tricks.html#cb84-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">colnames</span>(a_df)</span>
+<span id="cb84-2"><a href="some-useful-tricks.html#cb84-2" aria-hidden="true" tabindex="-1"></a>b_df <span class="ot">&lt;-</span> a_df</span>
+<span id="cb84-3"><a href="some-useful-tricks.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(col <span class="cf">in</span> cols)</span>
+<span id="cb84-4"><a href="some-useful-tricks.html#cb84-4" aria-hidden="true" tabindex="-1"></a>{b_df <span class="ot">&lt;-</span></span>
+<span id="cb84-5"><a href="some-useful-tricks.html#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(b_df, (<span class="sc">!!</span>rlang<span class="sc">::</span><span class="fu">sym</span>(col)) <span class="sc">!=</span> <span class="st">&quot;ZZZ&quot;</span>)</span>
+<span id="cb84-6"><a href="some-useful-tricks.html#cb84-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb84-7"><a href="some-useful-tricks.html#cb84-7" aria-hidden="true" tabindex="-1"></a>(b_df)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 4
 ##   x     y     z          w
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
-## 1 a     a     A     -0.699
-## 2 b     c     C     -1.32 
-## 3 e     e     E      0.406</code></pre>
+## 1 a     a     A     -0.208
+## 2 b     c     C      1.13 
+## 3 e     e     E     -0.676</code></pre>
 <p><strong>NB</strong>: In the above, we must use parentheses around <code>!!rlang::sym(col).</code></p>
 </div>
-<div id="dplyr-programming" class="section level2">
+<div id="dplyr-programming" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> dplyr programming</h2>
 <p>The good references are:</p>
 <ul>
@@ -226,340 +264,346 @@ b_df &lt;-<span class="st"> </span>a_df
 </ul>
 <p>Here, we try several examples.</p>
 <p><strong>Example 1: square a variable in a dataframe, using <code>rlang::sym()</code> and <code>!!</code> (bang, bang)</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-sq_a_var &lt;-<span class="st"> </span><span class="cf">function</span>(df, var)
-{new_var_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(var, <span class="st">&quot;_sq&quot;</span>)
-
- new_df &lt;-
-<span class="st">  </span>df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(new_var_name) <span class="op">:</span><span class="er">=</span><span class="st"> </span>(<span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(var))<span class="op">^</span><span class="dv">2</span>)
-
- new_df
-}
-
-a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,
-                   <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>)
-
-(<span class="kw">sq_a_var</span>(a_df, <span class="st">&quot;x&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="some-useful-tricks.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb86-2"><a href="some-useful-tricks.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="some-useful-tricks.html#cb86-3" aria-hidden="true" tabindex="-1"></a>sq_a_var <span class="ot">&lt;-</span> <span class="cf">function</span>(df, var)</span>
+<span id="cb86-4"><a href="some-useful-tricks.html#cb86-4" aria-hidden="true" tabindex="-1"></a>{new_var_name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(var, <span class="st">&quot;_sq&quot;</span>)</span>
+<span id="cb86-5"><a href="some-useful-tricks.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-6"><a href="some-useful-tricks.html#cb86-6" aria-hidden="true" tabindex="-1"></a> new_df <span class="ot">&lt;-</span></span>
+<span id="cb86-7"><a href="some-useful-tricks.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb86-8"><a href="some-useful-tricks.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!!</span>rlang<span class="sc">::</span><span class="fu">sym</span>(new_var_name) <span class="sc">:</span><span class="er">=</span> (<span class="sc">!!</span>rlang<span class="sc">::</span><span class="fu">sym</span>(var))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb86-9"><a href="some-useful-tricks.html#cb86-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-10"><a href="some-useful-tricks.html#cb86-10" aria-hidden="true" tabindex="-1"></a> new_df</span>
+<span id="cb86-11"><a href="some-useful-tricks.html#cb86-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb86-12"><a href="some-useful-tricks.html#cb86-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-13"><a href="some-useful-tricks.html#cb86-13" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb86-14"><a href="some-useful-tricks.html#cb86-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb86-15"><a href="some-useful-tricks.html#cb86-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-16"><a href="some-useful-tricks.html#cb86-16" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sq_a_var</span>(a_df, <span class="st">&quot;x&quot;</span>))</span></code></pre></div>
 <pre><code>##   x y x_sq
 ## 1 1 2    1
 ## 2 2 3    4
 ## 3 3 4    9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">sq_a_var</span>(a_df, <span class="st">&quot;y&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="some-useful-tricks.html#cb88-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sq_a_var</span>(a_df, <span class="st">&quot;y&quot;</span>))</span></code></pre></div>
 <pre><code>##   x y y_sq
 ## 1 1 2    4
 ## 2 2 3    9
 ## 3 3 4   16</code></pre>
 <p><strong>Version 2</strong>, in which we use <code>dplyr::enquo()</code> and <code>dplyr::quo_name()</code> and <code>!!</code> (bang, bang).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-sq_a_var &lt;-<span class="st"> </span><span class="cf">function</span>(df, var)
-{var_enquo &lt;-<span class="st"> </span><span class="kw">enquo</span>(var)
-  
- new_var_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">quo_name</span>(var_enquo), <span class="st">&quot;_sq&quot;</span>)
-
- new_df &lt;-
-<span class="st">  </span>df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>new_var_name <span class="op">:</span><span class="er">=</span><span class="st"> </span>(<span class="op">!!</span>var_enquo)<span class="op">^</span><span class="dv">2</span>)
-
- new_df
-}
-
-a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,
-                   <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>)
-
-(<span class="kw">sq_a_var</span>(a_df, x))</code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="some-useful-tricks.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb90-2"><a href="some-useful-tricks.html#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="some-useful-tricks.html#cb90-3" aria-hidden="true" tabindex="-1"></a>sq_a_var <span class="ot">&lt;-</span> <span class="cf">function</span>(df, var)</span>
+<span id="cb90-4"><a href="some-useful-tricks.html#cb90-4" aria-hidden="true" tabindex="-1"></a>{var_enquo <span class="ot">&lt;-</span> <span class="fu">enquo</span>(var)</span>
+<span id="cb90-5"><a href="some-useful-tricks.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-6"><a href="some-useful-tricks.html#cb90-6" aria-hidden="true" tabindex="-1"></a> new_var_name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">quo_name</span>(var_enquo), <span class="st">&quot;_sq&quot;</span>)</span>
+<span id="cb90-7"><a href="some-useful-tricks.html#cb90-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-8"><a href="some-useful-tricks.html#cb90-8" aria-hidden="true" tabindex="-1"></a> new_df <span class="ot">&lt;-</span></span>
+<span id="cb90-9"><a href="some-useful-tricks.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb90-10"><a href="some-useful-tricks.html#cb90-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!!</span><span class="at">new_var_name :=</span> (<span class="sc">!!</span>var_enquo)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb90-11"><a href="some-useful-tricks.html#cb90-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-12"><a href="some-useful-tricks.html#cb90-12" aria-hidden="true" tabindex="-1"></a> new_df</span>
+<span id="cb90-13"><a href="some-useful-tricks.html#cb90-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb90-14"><a href="some-useful-tricks.html#cb90-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-15"><a href="some-useful-tricks.html#cb90-15" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb90-16"><a href="some-useful-tricks.html#cb90-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb90-17"><a href="some-useful-tricks.html#cb90-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-18"><a href="some-useful-tricks.html#cb90-18" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sq_a_var</span>(a_df, x))</span></code></pre></div>
 <pre><code>##   x y x_sq
 ## 1 1 2    1
 ## 2 2 3    4
 ## 3 3 4    9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">sq_a_var</span>(a_df, y))</code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="some-useful-tricks.html#cb92-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sq_a_var</span>(a_df, y))</span></code></pre></div>
 <pre><code>##   x y y_sq
 ## 1 1 2    4
 ## 2 2 3    9
 ## 3 3 4   16</code></pre>
 <p><strong>Notice that in the above we use bare x or bare y rather than “x” or “y”.</strong></p>
 <p><strong>Example 2: find frequency of a variable, using <code>enquo()</code> and <code>!!</code> (bang, bang)</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">set.seed</span>(<span class="dv">20180425</span>)
-a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-                   <span class="dt">y =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
-
-freq_table &lt;-<span class="st"> </span><span class="cf">function</span>(df, var)
-{n &lt;-<span class="st"> </span><span class="kw">nrow</span>(df)
-
- var_enqo &lt;-<span class="st"> </span><span class="kw">enquo</span>(var)
- 
- re &lt;-<span class="st"> </span>
-<span class="st">   </span>df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">   </span><span class="kw">group_by</span>(<span class="op">!!</span>var_enqo) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">   </span><span class="kw">summarise</span>(<span class="dt">freq =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span>n)
- 
- re
-}
-
-(<span class="kw">freq_table</span>(a_df, x))</code></pre></div>
-<pre><code>## # A tibble: 3 x 2
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="some-useful-tricks.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb94-2"><a href="some-useful-tricks.html#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="some-useful-tricks.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20180425</span>)</span>
+<span id="cb94-4"><a href="some-useful-tricks.html#cb94-4" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">sample</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb94-5"><a href="some-useful-tricks.html#cb94-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb94-6"><a href="some-useful-tricks.html#cb94-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-7"><a href="some-useful-tricks.html#cb94-7" aria-hidden="true" tabindex="-1"></a>freq_table <span class="ot">&lt;-</span> <span class="cf">function</span>(df, var)</span>
+<span id="cb94-8"><a href="some-useful-tricks.html#cb94-8" aria-hidden="true" tabindex="-1"></a>{n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
+<span id="cb94-9"><a href="some-useful-tricks.html#cb94-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-10"><a href="some-useful-tricks.html#cb94-10" aria-hidden="true" tabindex="-1"></a> var_enqo <span class="ot">&lt;-</span> <span class="fu">enquo</span>(var)</span>
+<span id="cb94-11"><a href="some-useful-tricks.html#cb94-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb94-12"><a href="some-useful-tricks.html#cb94-12" aria-hidden="true" tabindex="-1"></a> re <span class="ot">&lt;-</span> </span>
+<span id="cb94-13"><a href="some-useful-tricks.html#cb94-13" aria-hidden="true" tabindex="-1"></a>   df <span class="sc">%&gt;%</span> </span>
+<span id="cb94-14"><a href="some-useful-tricks.html#cb94-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(<span class="sc">!!</span>var_enqo) <span class="sc">%&gt;%</span> </span>
+<span id="cb94-15"><a href="some-useful-tricks.html#cb94-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>() <span class="sc">/</span> n)</span>
+<span id="cb94-16"><a href="some-useful-tricks.html#cb94-16" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb94-17"><a href="some-useful-tricks.html#cb94-17" aria-hidden="true" tabindex="-1"></a> re</span>
+<span id="cb94-18"><a href="some-useful-tricks.html#cb94-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb94-19"><a href="some-useful-tricks.html#cb94-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-20"><a href="some-useful-tricks.html#cb94-20" aria-hidden="true" tabindex="-1"></a>(<span class="fu">freq_table</span>(a_df, x))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
 ##   x      freq
-##   &lt;fct&gt; &lt;dbl&gt;
-## 1 a     0.167
-## 2 b     0.167
-## 3 c     0.667</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">freq_table</span>(a_df, y))</code></pre></div>
+##   &lt;chr&gt; &lt;dbl&gt;
+## 1 b       0.5
+## 2 c       0.5</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="some-useful-tricks.html#cb96-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">freq_table</span>(a_df, y))</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   y      freq
-##   &lt;fct&gt; &lt;dbl&gt;
-## 1 A     0.167
+##   &lt;chr&gt; &lt;dbl&gt;
+## 1 A     0.5  
 ## 2 B     0.333
-## 3 C     0.5</code></pre>
+## 3 C     0.167</code></pre>
 <p><strong>Example 3: group-by more than a variable, using <code>quos()</code> and <code>!!!</code></strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">set.seed</span>(<span class="dv">20180425</span>)
-a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-                   <span class="dt">y =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-                   <span class="dt">z =</span> <span class="kw">as.character</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each =</span> <span class="dv">2</span>)))
-
-summ_a_few_vars &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...)
-{groupby_var &lt;-<span class="st"> </span><span class="kw">quos</span>(...)
-
- re &lt;-<span class="st"> </span>
-<span class="st">   </span>df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">   </span><span class="kw">group_by</span>(<span class="op">!!!</span>groupby_var) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">   </span><span class="kw">summarise</span>(<span class="dt">freq =</span> <span class="kw">n</span>())
- 
- re
-}
-(a_df)</code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="some-useful-tricks.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb98-2"><a href="some-useful-tricks.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="some-useful-tricks.html#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20180425</span>)</span>
+<span id="cb98-4"><a href="some-useful-tricks.html#cb98-4" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">sample</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb98-5"><a href="some-useful-tricks.html#cb98-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb98-6"><a href="some-useful-tricks.html#cb98-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">z =</span> <span class="fu">as.character</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">each =</span> <span class="dv">2</span>)))</span>
+<span id="cb98-7"><a href="some-useful-tricks.html#cb98-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-8"><a href="some-useful-tricks.html#cb98-8" aria-hidden="true" tabindex="-1"></a>summ_a_few_vars <span class="ot">&lt;-</span> <span class="cf">function</span>(df, ...)</span>
+<span id="cb98-9"><a href="some-useful-tricks.html#cb98-9" aria-hidden="true" tabindex="-1"></a>{groupby_var <span class="ot">&lt;-</span> <span class="fu">quos</span>(...)</span>
+<span id="cb98-10"><a href="some-useful-tricks.html#cb98-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-11"><a href="some-useful-tricks.html#cb98-11" aria-hidden="true" tabindex="-1"></a> re <span class="ot">&lt;-</span> </span>
+<span id="cb98-12"><a href="some-useful-tricks.html#cb98-12" aria-hidden="true" tabindex="-1"></a>   df <span class="sc">%&gt;%</span> </span>
+<span id="cb98-13"><a href="some-useful-tricks.html#cb98-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(<span class="sc">!!!</span>groupby_var) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-14"><a href="some-useful-tricks.html#cb98-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>())</span>
+<span id="cb98-15"><a href="some-useful-tricks.html#cb98-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb98-16"><a href="some-useful-tricks.html#cb98-16" aria-hidden="true" tabindex="-1"></a> re</span>
+<span id="cb98-17"><a href="some-useful-tricks.html#cb98-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb98-18"><a href="some-useful-tricks.html#cb98-18" aria-hidden="true" tabindex="-1"></a>(a_df)</span></code></pre></div>
 <pre><code>##   x y z
-## 1 b B 1
-## 2 c B 1
+## 1 c B 1
+## 2 b A 1
 ## 3 c C 2
-## 4 c C 2
-## 5 a A 3
-## 6 c C 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, x, y))</code></pre></div>
-<pre><code>## # A tibble: 4 x 3
-## # Groups:   x [3]
+## 4 c A 2
+## 5 b A 3
+## 6 b B 3</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="some-useful-tricks.html#cb100-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">summ_a_few_vars</span>(a_df, x, y))</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+## # Groups:   x [2]
 ##   x     y      freq
-##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
-## 1 a     A         1
+##   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+## 1 b     A         2
 ## 2 b     B         1
-## 3 c     B         1
-## 4 c     C         3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, y, z))</code></pre></div>
-<pre><code>## # A tibble: 4 x 3
+## 3 c     A         1
+## 4 c     B         1
+## 5 c     C         1</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="some-useful-tricks.html#cb102-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">summ_a_few_vars</span>(a_df, y, z))</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
 ## # Groups:   y [3]
 ##   y     z      freq
-##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
-## 1 A     3         1
-## 2 B     1         2
-## 3 C     2         2
-## 4 C     3         1</code></pre>
+##   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+## 1 A     1         1
+## 2 A     2         1
+## 3 A     3         1
+## 4 B     1         1
+## 5 B     3         1
+## 6 C     2         1</code></pre>
 <p><strong>Version 2</strong>, in which we use <code>rlang::syms()</code> and <code>!!!</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">set.seed</span>(<span class="dv">20180425</span>)
-a_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-                   <span class="dt">y =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-                   <span class="dt">z =</span> <span class="kw">as.character</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each =</span> <span class="dv">2</span>)))
-
-summ_a_few_vars &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...)
-{groupby_var &lt;-<span class="st"> </span>rlang<span class="op">::</span><span class="kw">syms</span>(...)
-
-re &lt;-<span class="st"> </span>
-<span class="st">  </span>df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(<span class="op">!!!</span>groupby_var) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">freq =</span> <span class="kw">n</span>())
-
-re
-}
-
-(a_df)</code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="some-useful-tricks.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb104-2"><a href="some-useful-tricks.html#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="some-useful-tricks.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20180425</span>)</span>
+<span id="cb104-4"><a href="some-useful-tricks.html#cb104-4" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">sample</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb104-5"><a href="some-useful-tricks.html#cb104-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb104-6"><a href="some-useful-tricks.html#cb104-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">z =</span> <span class="fu">as.character</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">each =</span> <span class="dv">2</span>)))</span>
+<span id="cb104-7"><a href="some-useful-tricks.html#cb104-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-8"><a href="some-useful-tricks.html#cb104-8" aria-hidden="true" tabindex="-1"></a>summ_a_few_vars <span class="ot">&lt;-</span> <span class="cf">function</span>(df, ...)</span>
+<span id="cb104-9"><a href="some-useful-tricks.html#cb104-9" aria-hidden="true" tabindex="-1"></a>{groupby_var <span class="ot">&lt;-</span> rlang<span class="sc">::</span><span class="fu">syms</span>(...)</span>
+<span id="cb104-10"><a href="some-useful-tricks.html#cb104-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-11"><a href="some-useful-tricks.html#cb104-11" aria-hidden="true" tabindex="-1"></a>re <span class="ot">&lt;-</span> </span>
+<span id="cb104-12"><a href="some-useful-tricks.html#cb104-12" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb104-13"><a href="some-useful-tricks.html#cb104-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="sc">!!!</span>groupby_var) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-14"><a href="some-useful-tricks.html#cb104-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>())</span>
+<span id="cb104-15"><a href="some-useful-tricks.html#cb104-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-16"><a href="some-useful-tricks.html#cb104-16" aria-hidden="true" tabindex="-1"></a>re</span>
+<span id="cb104-17"><a href="some-useful-tricks.html#cb104-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb104-18"><a href="some-useful-tricks.html#cb104-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-19"><a href="some-useful-tricks.html#cb104-19" aria-hidden="true" tabindex="-1"></a>(a_df)</span></code></pre></div>
 <pre><code>##   x y z
-## 1 b B 1
-## 2 c B 1
+## 1 c B 1
+## 2 b A 1
 ## 3 c C 2
-## 4 c C 2
-## 5 a A 3
-## 6 c C 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, <span class="kw">list</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)))</code></pre></div>
-<pre><code>## # A tibble: 4 x 3
-## # Groups:   x [3]
+## 4 c A 2
+## 5 b A 3
+## 6 b B 3</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="some-useful-tricks.html#cb106-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">summ_a_few_vars</span>(a_df, <span class="fu">list</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)))</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+## # Groups:   x [2]
 ##   x     y      freq
-##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
-## 1 a     A         1
+##   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+## 1 b     A         2
 ## 2 b     B         1
-## 3 c     B         1
-## 4 c     C         3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">summ_a_few_vars</span>(a_df, <span class="kw">list</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)))</code></pre></div>
-<pre><code>## # A tibble: 4 x 3
+## 3 c     A         1
+## 4 c     B         1
+## 5 c     C         1</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="some-useful-tricks.html#cb108-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">summ_a_few_vars</span>(a_df, <span class="fu">list</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)))</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
 ## # Groups:   y [3]
 ##   y     z      freq
-##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
-## 1 A     3         1
-## 2 B     1         2
-## 3 C     2         2
-## 4 C     3         1</code></pre>
+##   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+## 1 A     1         1
+## 2 A     2         1
+## 3 A     3         1
+## 4 B     1         1
+## 5 B     3         1
+## 6 C     2         1</code></pre>
 </div>
-<div id="using-apply-and-map-family-of-functions" class="section level2">
+<div id="using-apply-and-map-family-of-functions" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Using <code>apply</code> and <code>map</code> family of functions</h2>
 <p><strong>Example 1</strong>: (a) Create a fake data frame which has three columns: group_ID, list_1 and list_2, where both list_1 and list_2 are <em>list of lists</em>; (b) find the intersection of list_1 and list_2 and the number of elements in the intersection. The key is to use <code>mapply()</code> and <code>sapply</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
-
-<span class="co"># temp data_frame</span>
-<span class="co"># this is to make the fake data more &quot;real&quot;</span>
-temp_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> 4L,
-                      <span class="dt">L_1 =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>),
-                      <span class="dt">L_2 =</span> <span class="kw">list</span>(<span class="ot">NULL</span>))
-
-<span class="co"># fake data_frame</span>
-fk_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">v1 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">v2 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(group_ID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">L_1 =</span> <span class="kw">list</span>(v1),
-            <span class="dt">L_2 =</span> <span class="kw">list</span>(v2)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">bind_rows</span>(temp_df)
-
-result_df &lt;-<span class="st"> </span>
-<span class="st">  </span>fk_df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">inter_set =</span> <span class="kw">mapply</span>(intersect, L_<span class="dv">1</span>, L_<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">sapply</span>(inter_set, length))
-
-result_df</code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="some-useful-tricks.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb110-2"><a href="some-useful-tricks.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="some-useful-tricks.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12022018</span>)</span>
+<span id="cb110-4"><a href="some-useful-tricks.html#cb110-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-5"><a href="some-useful-tricks.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="co"># temp data_frame</span></span>
+<span id="cb110-6"><a href="some-useful-tricks.html#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="co"># this is to make the fake data more &quot;real&quot;</span></span>
+<span id="cb110-7"><a href="some-useful-tricks.html#cb110-7" aria-hidden="true" tabindex="-1"></a>temp_df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">group_ID =</span> 4L,</span>
+<span id="cb110-8"><a href="some-useful-tricks.html#cb110-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">L_1 =</span> <span class="fu">list</span>(<span class="st">&quot;a&quot;</span>),</span>
+<span id="cb110-9"><a href="some-useful-tricks.html#cb110-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">L_2 =</span> <span class="fu">list</span>(<span class="cn">NULL</span>))</span>
+<span id="cb110-10"><a href="some-useful-tricks.html#cb110-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-11"><a href="some-useful-tricks.html#cb110-11" aria-hidden="true" tabindex="-1"></a><span class="co"># fake data_frame</span></span>
+<span id="cb110-12"><a href="some-useful-tricks.html#cb110-12" aria-hidden="true" tabindex="-1"></a>fk_df <span class="ot">&lt;-</span> </span>
+<span id="cb110-13"><a href="some-useful-tricks.html#cb110-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">group_ID =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb110-14"><a href="some-useful-tricks.html#cb110-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">v1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(letters, <span class="cn">NA</span>), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb110-15"><a href="some-useful-tricks.html#cb110-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">v2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(letters, <span class="cn">NA</span>), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb110-16"><a href="some-useful-tricks.html#cb110-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group_ID) <span class="sc">%&gt;%</span> </span>
+<span id="cb110-17"><a href="some-useful-tricks.html#cb110-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">L_1 =</span> <span class="fu">list</span>(v1),</span>
+<span id="cb110-18"><a href="some-useful-tricks.html#cb110-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">L_2 =</span> <span class="fu">list</span>(v2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb110-19"><a href="some-useful-tricks.html#cb110-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(temp_df)</span>
+<span id="cb110-20"><a href="some-useful-tricks.html#cb110-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-21"><a href="some-useful-tricks.html#cb110-21" aria-hidden="true" tabindex="-1"></a>result_df <span class="ot">&lt;-</span> </span>
+<span id="cb110-22"><a href="some-useful-tricks.html#cb110-22" aria-hidden="true" tabindex="-1"></a>  fk_df <span class="sc">%&gt;%</span> </span>
+<span id="cb110-23"><a href="some-useful-tricks.html#cb110-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inter_set =</span> <span class="fu">mapply</span>(intersect, L_1, L_2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb110-24"><a href="some-useful-tricks.html#cb110-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sapply</span>(inter_set, length))</span>
+<span id="cb110-25"><a href="some-useful-tricks.html#cb110-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-26"><a href="some-useful-tricks.html#cb110-26" aria-hidden="true" tabindex="-1"></a>result_df</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 5
 ##   group_ID L_1        L_2        inter_set     n
 ##      &lt;int&gt; &lt;list&gt;     &lt;list&gt;     &lt;list&gt;    &lt;int&gt;
-## 1        1 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [0]&gt;     0
-## 2        2 &lt;chr [14]&gt; &lt;chr [14]&gt; &lt;chr [5]&gt;     5
-## 3        3 &lt;chr [7]&gt;  &lt;chr [7]&gt;  &lt;chr [0]&gt;     0
+## 1        1 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [3]&gt;     3
+## 2        2 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [3]&gt;     3
+## 3        3 &lt;chr [12]&gt; &lt;chr [12]&gt; &lt;chr [2]&gt;     2
 ## 4        4 &lt;chr [1]&gt;  &lt;NULL&gt;     &lt;NULL&gt;        0</code></pre>
 <p>The <code>map</code> version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(purrr)
-
-<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
-
-<span class="co"># temp data_frame</span>
-<span class="co"># this is to make the fake data more &quot;real&quot;</span>
-temp_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> 4L,
-                      <span class="dt">L_1 =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>),
-                      <span class="dt">L_2 =</span> <span class="kw">list</span>(<span class="ot">NULL</span>))
-
-<span class="co"># fake data_frame</span>
-fk_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">group_ID =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">v1 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">v2 =</span> <span class="kw">sample</span>(<span class="kw">c</span>(letters, <span class="ot">NA</span>), <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(group_ID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">L_1 =</span> <span class="kw">list</span>(v1),
-            <span class="dt">L_2 =</span> <span class="kw">list</span>(v2)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">bind_rows</span>(temp_df)
-
-result_df &lt;-<span class="st"> </span>
-<span class="st">  </span>fk_df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">inter_set =</span> <span class="kw">map2</span>(L_<span class="dv">1</span>, L_<span class="dv">2</span>, intersect)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># or using pmap</span>
-<span class="st">  </span><span class="co"># mutate(inter_set = pmap(list(L_1, L_2), intersect)) %&gt;% </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">map_int</span>(inter_set, length))
-
-result_df</code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="some-useful-tricks.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb112-2"><a href="some-useful-tricks.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb112-3"><a href="some-useful-tricks.html#cb112-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-4"><a href="some-useful-tricks.html#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12022018</span>)</span>
+<span id="cb112-5"><a href="some-useful-tricks.html#cb112-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-6"><a href="some-useful-tricks.html#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="co"># temp data_frame</span></span>
+<span id="cb112-7"><a href="some-useful-tricks.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="co"># this is to make the fake data more &quot;real&quot;</span></span>
+<span id="cb112-8"><a href="some-useful-tricks.html#cb112-8" aria-hidden="true" tabindex="-1"></a>temp_df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">group_ID =</span> 4L,</span>
+<span id="cb112-9"><a href="some-useful-tricks.html#cb112-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">L_1 =</span> <span class="fu">list</span>(<span class="st">&quot;a&quot;</span>),</span>
+<span id="cb112-10"><a href="some-useful-tricks.html#cb112-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">L_2 =</span> <span class="fu">list</span>(<span class="cn">NULL</span>))</span>
+<span id="cb112-11"><a href="some-useful-tricks.html#cb112-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-12"><a href="some-useful-tricks.html#cb112-12" aria-hidden="true" tabindex="-1"></a><span class="co"># fake data_frame</span></span>
+<span id="cb112-13"><a href="some-useful-tricks.html#cb112-13" aria-hidden="true" tabindex="-1"></a>fk_df <span class="ot">&lt;-</span> </span>
+<span id="cb112-14"><a href="some-useful-tricks.html#cb112-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">group_ID =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb112-15"><a href="some-useful-tricks.html#cb112-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">v1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(letters, <span class="cn">NA</span>), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb112-16"><a href="some-useful-tricks.html#cb112-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">v2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(letters, <span class="cn">NA</span>), <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-17"><a href="some-useful-tricks.html#cb112-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group_ID) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-18"><a href="some-useful-tricks.html#cb112-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">L_1 =</span> <span class="fu">list</span>(v1),</span>
+<span id="cb112-19"><a href="some-useful-tricks.html#cb112-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">L_2 =</span> <span class="fu">list</span>(v2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-20"><a href="some-useful-tricks.html#cb112-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(temp_df)</span>
+<span id="cb112-21"><a href="some-useful-tricks.html#cb112-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-22"><a href="some-useful-tricks.html#cb112-22" aria-hidden="true" tabindex="-1"></a>result_df <span class="ot">&lt;-</span> </span>
+<span id="cb112-23"><a href="some-useful-tricks.html#cb112-23" aria-hidden="true" tabindex="-1"></a>  fk_df <span class="sc">%&gt;%</span> </span>
+<span id="cb112-24"><a href="some-useful-tricks.html#cb112-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inter_set =</span> <span class="fu">map2</span>(L_1, L_2, intersect)) <span class="sc">%&gt;%</span></span>
+<span id="cb112-25"><a href="some-useful-tricks.html#cb112-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or using pmap</span></span>
+<span id="cb112-26"><a href="some-useful-tricks.html#cb112-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(inter_set = pmap(list(L_1, L_2), intersect)) %&gt;% </span></span>
+<span id="cb112-27"><a href="some-useful-tricks.html#cb112-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">map_int</span>(inter_set, length))</span>
+<span id="cb112-28"><a href="some-useful-tricks.html#cb112-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-29"><a href="some-useful-tricks.html#cb112-29" aria-hidden="true" tabindex="-1"></a>result_df</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 5
 ##   group_ID L_1        L_2        inter_set     n
 ##      &lt;int&gt; &lt;list&gt;     &lt;list&gt;     &lt;list&gt;    &lt;int&gt;
-## 1        1 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [0]&gt;     0
-## 2        2 &lt;chr [14]&gt; &lt;chr [14]&gt; &lt;chr [5]&gt;     5
-## 3        3 &lt;chr [7]&gt;  &lt;chr [7]&gt;  &lt;chr [0]&gt;     0
+## 1        1 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [3]&gt;     3
+## 2        2 &lt;chr [9]&gt;  &lt;chr [9]&gt;  &lt;chr [3]&gt;     3
+## 3        3 &lt;chr [12]&gt; &lt;chr [12]&gt; &lt;chr [2]&gt;     2
 ## 4        4 &lt;chr [1]&gt;  &lt;NULL&gt;     &lt;NULL&gt;        0</code></pre>
-<p><strong>Example 2</strong>: (a) Create a fake data frame, which has columns of sex, age and score; (b) for each column, find its mode (the most frequent one) and the frequency. The key is to use <code>sapply()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
-
-fk_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="co"># using data_frame rather than data.frame, for dealing with &quot;negative&quot; factor effect</span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">sex =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">age =</span> <span class="kw">sample</span>(<span class="dv">19</span><span class="op">:</span><span class="dv">25</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">score =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
-
-<span class="co"># modified Mode function</span>
-<span class="co"># https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode</span>
-Mode_and_freq &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-  ux &lt;-<span class="st"> </span><span class="kw">unique</span>(x)
-  the_mode &lt;-<span class="st"> </span>ux[<span class="kw">which.max</span>(<span class="kw">tabulate</span>(<span class="kw">match</span>(x, ux)))]
-  <span class="kw">list</span>(the_mode, <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span>the_mode)) 
-}
-
-result_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">sapply</span>(fk_df, <span class="cf">function</span>(x){<span class="kw">Mode_and_freq</span>(x)}) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st">   </span>
-<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">V1 =</span> <span class="kw">as.character</span>(V1)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">the_mode =</span> V1,
-         <span class="dt">the_freq =</span> V2) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(<span class="dt">var_name =</span> <span class="kw">names</span>(fk_df), <span class="dt">.after =</span> <span class="dv">0</span>)
-
-result_df  </code></pre></div>
+<p><strong>Example 2</strong>: (a) Create a fake data frame, which has columns of sex, age and score;
+(b) for each column, find its mode (the most frequent one) and the frequency. The key is to use <code>sapply()</code>.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="some-useful-tricks.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb114-2"><a href="some-useful-tricks.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-3"><a href="some-useful-tricks.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12022018</span>)</span>
+<span id="cb114-4"><a href="some-useful-tricks.html#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-5"><a href="some-useful-tricks.html#cb114-5" aria-hidden="true" tabindex="-1"></a>fk_df <span class="ot">&lt;-</span> </span>
+<span id="cb114-6"><a href="some-useful-tricks.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># using data_frame rather than data.frame, for dealing with &quot;negative&quot; factor effect</span></span>
+<span id="cb114-7"><a href="some-useful-tricks.html#cb114-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">sex =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb114-8"><a href="some-useful-tricks.html#cb114-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">age =</span> <span class="fu">sample</span>(<span class="dv">19</span><span class="sc">:</span><span class="dv">25</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb114-9"><a href="some-useful-tricks.html#cb114-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">score =</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb114-10"><a href="some-useful-tricks.html#cb114-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-11"><a href="some-useful-tricks.html#cb114-11" aria-hidden="true" tabindex="-1"></a><span class="co"># modified Mode function</span></span>
+<span id="cb114-12"><a href="some-useful-tricks.html#cb114-12" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode</span></span>
+<span id="cb114-13"><a href="some-useful-tricks.html#cb114-13" aria-hidden="true" tabindex="-1"></a>Mode_and_freq <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb114-14"><a href="some-useful-tricks.html#cb114-14" aria-hidden="true" tabindex="-1"></a>  ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
+<span id="cb114-15"><a href="some-useful-tricks.html#cb114-15" aria-hidden="true" tabindex="-1"></a>  the_mode <span class="ot">&lt;-</span> ux[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(x, ux)))]</span>
+<span id="cb114-16"><a href="some-useful-tricks.html#cb114-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(the_mode, <span class="fu">sum</span>(x <span class="sc">==</span> the_mode)) </span>
+<span id="cb114-17"><a href="some-useful-tricks.html#cb114-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb114-18"><a href="some-useful-tricks.html#cb114-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-19"><a href="some-useful-tricks.html#cb114-19" aria-hidden="true" tabindex="-1"></a>result_df <span class="ot">&lt;-</span> </span>
+<span id="cb114-20"><a href="some-useful-tricks.html#cb114-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(fk_df, <span class="cf">function</span>(x){<span class="fu">Mode_and_freq</span>(x)}) <span class="sc">%&gt;%</span> </span>
+<span id="cb114-21"><a href="some-useful-tricks.html#cb114-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">%&gt;%</span>   </span>
+<span id="cb114-22"><a href="some-useful-tricks.html#cb114-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb114-23"><a href="some-useful-tricks.html#cb114-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V1 =</span> <span class="fu">as.character</span>(V1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb114-24"><a href="some-useful-tricks.html#cb114-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">the_mode =</span> V1,</span>
+<span id="cb114-25"><a href="some-useful-tricks.html#cb114-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">the_freq =</span> V2) <span class="sc">%&gt;%</span> </span>
+<span id="cb114-26"><a href="some-useful-tricks.html#cb114-26" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">add_column</span>(<span class="at">var_name =</span> <span class="fu">names</span>(fk_df), <span class="at">.after =</span> <span class="dv">0</span>)</span>
+<span id="cb114-27"><a href="some-useful-tricks.html#cb114-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-28"><a href="some-useful-tricks.html#cb114-28" aria-hidden="true" tabindex="-1"></a>result_df  </span></code></pre></div>
 <pre><code>##       var_name the_mode the_freq
-## sex        sex        M       54
-## age        age       24       17
-## score    score        C       26</code></pre>
+## sex        sex        M       59
+## age        age       21       24
+## score    score        D       29</code></pre>
 <p>Or, we use the following code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(purrr)
-
-<span class="kw">set.seed</span>(<span class="dv">12022018</span>)
-
-fk_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="co"># using data_frame rather than data.frame, for dealing with &quot;negative&quot; factor effect</span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">sex =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">age =</span> <span class="kw">sample</span>(<span class="dv">19</span><span class="op">:</span><span class="dv">25</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
-             <span class="dt">score =</span> <span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
-
-<span class="co"># modified Mode function</span>
-<span class="co"># https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode</span>
-Mode_and_freq &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-  ux &lt;-<span class="st"> </span><span class="kw">unique</span>(x)
-  the_mode &lt;-<span class="st"> </span>ux[<span class="kw">which.max</span>(<span class="kw">tabulate</span>(<span class="kw">match</span>(x, ux)))]
-  <span class="kw">list</span>(the_mode, <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span>the_mode)) 
-}
-
-re_list &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">map</span>(fk_df, Mode_and_freq)
-
-result_df_<span class="dv">2</span> &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">v_name =</span> <span class="kw">names</span>(re_list)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_mode =</span> <span class="kw">map_chr</span>(re_list, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
-         <span class="dt">the_freq =</span> <span class="kw">map_int</span>(re_list, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]))
- 
-result_df_<span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="some-useful-tricks.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb116-2"><a href="some-useful-tricks.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb116-3"><a href="some-useful-tricks.html#cb116-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="some-useful-tricks.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12022018</span>)</span>
+<span id="cb116-5"><a href="some-useful-tricks.html#cb116-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-6"><a href="some-useful-tricks.html#cb116-6" aria-hidden="true" tabindex="-1"></a>fk_df <span class="ot">&lt;-</span> </span>
+<span id="cb116-7"><a href="some-useful-tricks.html#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># using data_frame rather than data.frame, for dealing with &quot;negative&quot; factor effect</span></span>
+<span id="cb116-8"><a href="some-useful-tricks.html#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">sex =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb116-9"><a href="some-useful-tricks.html#cb116-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">age =</span> <span class="fu">sample</span>(<span class="dv">19</span><span class="sc">:</span><span class="dv">25</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb116-10"><a href="some-useful-tricks.html#cb116-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">score =</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb116-11"><a href="some-useful-tricks.html#cb116-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-12"><a href="some-useful-tricks.html#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="co"># modified Mode function</span></span>
+<span id="cb116-13"><a href="some-useful-tricks.html#cb116-13" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode</span></span>
+<span id="cb116-14"><a href="some-useful-tricks.html#cb116-14" aria-hidden="true" tabindex="-1"></a>Mode_and_freq <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb116-15"><a href="some-useful-tricks.html#cb116-15" aria-hidden="true" tabindex="-1"></a>  ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
+<span id="cb116-16"><a href="some-useful-tricks.html#cb116-16" aria-hidden="true" tabindex="-1"></a>  the_mode <span class="ot">&lt;-</span> ux[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(x, ux)))]</span>
+<span id="cb116-17"><a href="some-useful-tricks.html#cb116-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(the_mode, <span class="fu">sum</span>(x <span class="sc">==</span> the_mode)) </span>
+<span id="cb116-18"><a href="some-useful-tricks.html#cb116-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb116-19"><a href="some-useful-tricks.html#cb116-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-20"><a href="some-useful-tricks.html#cb116-20" aria-hidden="true" tabindex="-1"></a>re_list <span class="ot">&lt;-</span> </span>
+<span id="cb116-21"><a href="some-useful-tricks.html#cb116-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(fk_df, Mode_and_freq)</span>
+<span id="cb116-22"><a href="some-useful-tricks.html#cb116-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-23"><a href="some-useful-tricks.html#cb116-23" aria-hidden="true" tabindex="-1"></a>result_df_2 <span class="ot">&lt;-</span> </span>
+<span id="cb116-24"><a href="some-useful-tricks.html#cb116-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">v_name =</span> <span class="fu">names</span>(re_list)) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-25"><a href="some-useful-tricks.html#cb116-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">the_mode =</span> <span class="fu">map_chr</span>(re_list, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),</span>
+<span id="cb116-26"><a href="some-useful-tricks.html#cb116-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">the_freq =</span> <span class="fu">map_int</span>(re_list, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]))</span>
+<span id="cb116-27"><a href="some-useful-tricks.html#cb116-27" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb116-28"><a href="some-useful-tricks.html#cb116-28" aria-hidden="true" tabindex="-1"></a>result_df_2</span></code></pre></div>
 <pre><code>##   v_name the_mode the_freq
-## 1    sex        M       54
-## 2    age       24       17
-## 3  score        C       26</code></pre>
+## 1    sex        M       59
+## 2    age       21       24
+## 3  score        D       29</code></pre>
 <p><strong>Example 3</strong>: This is another example to use <code>sapply</code> (or <code>lapply()</code>). We want to split the words and descriptions in a dictionary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-my_dict &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">record =</span> <span class="kw">c</span>(<span class="st">&quot;a : ace&quot;</span>,
-                        <span class="st">&quot;b: boy&quot;</span>,
-                        <span class="st">&quot;c: coy &quot;</span>))
-
-result_df &lt;-<span class="st"> </span>
-<span class="st">  </span>my_dict <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word_desc =</span> <span class="kw">strsplit</span>(record, <span class="dt">split =</span> <span class="st">&quot;:&quot;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">sapply</span>(word_desc, <span class="cf">function</span>(x) <span class="kw">unlist</span>(x)[<span class="dv">1</span>])) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">description =</span> <span class="kw">sapply</span>(word_desc, <span class="cf">function</span>(x) <span class="kw">unlist</span>(x)[<span class="dv">2</span>])) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">trimws</span>(word, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>),
-         <span class="dt">description =</span> <span class="kw">trimws</span>(description, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>))
-  
-result_df</code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="some-useful-tricks.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb118-2"><a href="some-useful-tricks.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="some-useful-tricks.html#cb118-3" aria-hidden="true" tabindex="-1"></a>my_dict <span class="ot">&lt;-</span> </span>
+<span id="cb118-4"><a href="some-useful-tricks.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">record =</span> <span class="fu">c</span>(<span class="st">&quot;a : ace&quot;</span>,</span>
+<span id="cb118-5"><a href="some-useful-tricks.html#cb118-5" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;b: boy&quot;</span>,</span>
+<span id="cb118-6"><a href="some-useful-tricks.html#cb118-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;c: coy &quot;</span>))</span>
+<span id="cb118-7"><a href="some-useful-tricks.html#cb118-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-8"><a href="some-useful-tricks.html#cb118-8" aria-hidden="true" tabindex="-1"></a>result_df <span class="ot">&lt;-</span> </span>
+<span id="cb118-9"><a href="some-useful-tricks.html#cb118-9" aria-hidden="true" tabindex="-1"></a>  my_dict <span class="sc">%&gt;%</span> </span>
+<span id="cb118-10"><a href="some-useful-tricks.html#cb118-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_desc =</span> <span class="fu">strsplit</span>(record, <span class="at">split =</span> <span class="st">&quot;:&quot;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb118-11"><a href="some-useful-tricks.html#cb118-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">sapply</span>(word_desc, <span class="cf">function</span>(x) <span class="fu">unlist</span>(x)[<span class="dv">1</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-12"><a href="some-useful-tricks.html#cb118-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">sapply</span>(word_desc, <span class="cf">function</span>(x) <span class="fu">unlist</span>(x)[<span class="dv">2</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-13"><a href="some-useful-tricks.html#cb118-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">trimws</span>(word, <span class="at">which =</span> <span class="st">&quot;both&quot;</span>),</span>
+<span id="cb118-14"><a href="some-useful-tricks.html#cb118-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">description =</span> <span class="fu">trimws</span>(description, <span class="at">which =</span> <span class="st">&quot;both&quot;</span>))</span>
+<span id="cb118-15"><a href="some-useful-tricks.html#cb118-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-16"><a href="some-useful-tricks.html#cb118-16" aria-hidden="true" tabindex="-1"></a>result_df</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 4
 ##   record    word_desc word  description
 ##   &lt;chr&gt;     &lt;list&gt;    &lt;chr&gt; &lt;chr&gt;      
@@ -567,28 +611,28 @@ result_df</code></pre></div>
 ## 2 &quot;b: boy&quot;  &lt;chr [2]&gt; b     boy        
 ## 3 &quot;c: coy &quot; &lt;chr [2]&gt; c     coy</code></pre>
 <p><strong>Example 4</strong>: This is an example for dealing with <em>list column</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(tidyr) <span class="co"># for nest()</span>
-<span class="kw">library</span>(purrr)
-
-fk_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">ID =</span> <span class="kw">as.character</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>),
-             <span class="dt">v1 =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,
-             <span class="dt">v2 =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">6</span>,
-             <span class="dt">v3 =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">7</span>)
-
-wk_df_<span class="dv">1</span> &lt;-<span class="st"> </span>
-<span class="st">  </span>fk_df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(ID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;the_list&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="some-useful-tricks.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb120-2"><a href="some-useful-tricks.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="co"># for nest()</span></span>
+<span id="cb120-3"><a href="some-useful-tricks.html#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb120-4"><a href="some-useful-tricks.html#cb120-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-5"><a href="some-useful-tricks.html#cb120-5" aria-hidden="true" tabindex="-1"></a>fk_df <span class="ot">&lt;-</span> </span>
+<span id="cb120-6"><a href="some-useful-tricks.html#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">ID =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb120-7"><a href="some-useful-tricks.html#cb120-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">v1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb120-8"><a href="some-useful-tricks.html#cb120-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">v2 =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb120-9"><a href="some-useful-tricks.html#cb120-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">v3 =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb120-10"><a href="some-useful-tricks.html#cb120-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-11"><a href="some-useful-tricks.html#cb120-11" aria-hidden="true" tabindex="-1"></a>wk_df_1 <span class="ot">&lt;-</span> </span>
+<span id="cb120-12"><a href="some-useful-tricks.html#cb120-12" aria-hidden="true" tabindex="-1"></a>  fk_df <span class="sc">%&gt;%</span> </span>
+<span id="cb120-13"><a href="some-useful-tricks.html#cb120-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ID) <span class="sc">%&gt;%</span> </span>
+<span id="cb120-14"><a href="some-useful-tricks.html#cb120-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.key =</span> <span class="st">&quot;the_list&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: `.key` is deprecated</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wk_df_<span class="dv">2</span> &lt;-<span class="st"> </span>
-<span class="st">  </span>wk_df_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_sum =</span> <span class="kw">map_dbl</span>(the_list, sum)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># mutate(the_mean = map_dbl(the_list, mean)) # this does not work</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_mean =</span> <span class="kw">map_dbl</span>(the_list, <span class="cf">function</span>(x) <span class="kw">mean</span>(<span class="kw">unlist</span>(x)))) <span class="co"># this works!</span>
-
-wk_df_<span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="some-useful-tricks.html#cb122-1" aria-hidden="true" tabindex="-1"></a>wk_df_2 <span class="ot">&lt;-</span> </span>
+<span id="cb122-2"><a href="some-useful-tricks.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  wk_df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb122-3"><a href="some-useful-tricks.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">the_sum =</span> <span class="fu">map_dbl</span>(the_list, sum)) <span class="sc">%&gt;%</span></span>
+<span id="cb122-4"><a href="some-useful-tricks.html#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(the_mean = map_dbl(the_list, mean)) # this does not work</span></span>
+<span id="cb122-5"><a href="some-useful-tricks.html#cb122-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">the_mean =</span> <span class="fu">map_dbl</span>(the_list, <span class="cf">function</span>(x) <span class="fu">mean</span>(<span class="fu">unlist</span>(x)))) <span class="co"># this works!</span></span>
+<span id="cb122-6"><a href="some-useful-tricks.html#cb122-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-7"><a href="some-useful-tricks.html#cb122-7" aria-hidden="true" tabindex="-1"></a>wk_df_2</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ## # Groups:   ID [5]
 ##   ID    the_list         the_sum the_mean
@@ -599,30 +643,30 @@ wk_df_<span class="dv">2</span></code></pre></div>
 ## 4 4     &lt;tibble [1 x 3]&gt;      15        5
 ## 5 5     &lt;tibble [1 x 3]&gt;      18        6</code></pre>
 <p><strong>Example 5</strong>: Another example for dealing with <em>list columns</em>. Note the use of <code>map2()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(purrr)
-
-<span class="kw">set.seed</span>(<span class="dv">20190206</span>)
-
-hp_func &lt;-<span class="st"> </span><span class="cf">function</span>(a_list)
-{temp &lt;-<span class="st"> </span><span class="kw">unlist</span>(a_list)
- re &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">quantile</span>(temp, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.5</span>, <span class="fl">0.975</span>)), <span class="dv">1</span>)
- <span class="kw">return</span>(re)
-}
-
-
-fk_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">mu =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>),
-             <span class="dt">st_dev =</span> <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mu =</span> <span class="kw">as.list</span>(mu),
-         <span class="dt">st_dev =</span> <span class="kw">as.list</span>(st_dev)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rv =</span> <span class="kw">map2</span>(mu, st_dev, <span class="cf">function</span>(x, y) <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> x, <span class="dt">sd =</span> y))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_quantiles =</span> <span class="kw">map</span>(rv, hp_func)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">q_dot_025 =</span> <span class="kw">map_dbl</span>(the_quantiles, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
-         <span class="dt">q_dot_5 =</span> <span class="kw">map_dbl</span>(the_quantiles, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]),
-         <span class="dt">q_dot_975 =</span> <span class="kw">map_dbl</span>(the_quantiles, <span class="cf">function</span>(x) x[[<span class="dv">3</span>]])) 
-
-fk_df</code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="some-useful-tricks.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb124-2"><a href="some-useful-tricks.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb124-3"><a href="some-useful-tricks.html#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-4"><a href="some-useful-tricks.html#cb124-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20190206</span>)</span>
+<span id="cb124-5"><a href="some-useful-tricks.html#cb124-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-6"><a href="some-useful-tricks.html#cb124-6" aria-hidden="true" tabindex="-1"></a>hp_func <span class="ot">&lt;-</span> <span class="cf">function</span>(a_list)</span>
+<span id="cb124-7"><a href="some-useful-tricks.html#cb124-7" aria-hidden="true" tabindex="-1"></a>{temp <span class="ot">&lt;-</span> <span class="fu">unlist</span>(a_list)</span>
+<span id="cb124-8"><a href="some-useful-tricks.html#cb124-8" aria-hidden="true" tabindex="-1"></a> re <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">quantile</span>(temp, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.5</span>, <span class="fl">0.975</span>)), <span class="dv">1</span>)</span>
+<span id="cb124-9"><a href="some-useful-tricks.html#cb124-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(re)</span>
+<span id="cb124-10"><a href="some-useful-tricks.html#cb124-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb124-11"><a href="some-useful-tricks.html#cb124-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-12"><a href="some-useful-tricks.html#cb124-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-13"><a href="some-useful-tricks.html#cb124-13" aria-hidden="true" tabindex="-1"></a>fk_df <span class="ot">&lt;-</span> </span>
+<span id="cb124-14"><a href="some-useful-tricks.html#cb124-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_frame</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>),</span>
+<span id="cb124-15"><a href="some-useful-tricks.html#cb124-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">st_dev =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-16"><a href="some-useful-tricks.html#cb124-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">as.list</span>(mu),</span>
+<span id="cb124-17"><a href="some-useful-tricks.html#cb124-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">st_dev =</span> <span class="fu">as.list</span>(st_dev)) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-18"><a href="some-useful-tricks.html#cb124-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rv =</span> <span class="fu">map2</span>(mu, st_dev, <span class="cf">function</span>(x, y) <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> x, <span class="at">sd =</span> y))) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-19"><a href="some-useful-tricks.html#cb124-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">the_quantiles =</span> <span class="fu">map</span>(rv, hp_func)) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-20"><a href="some-useful-tricks.html#cb124-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q_dot_025 =</span> <span class="fu">map_dbl</span>(the_quantiles, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),</span>
+<span id="cb124-21"><a href="some-useful-tricks.html#cb124-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">q_dot_5 =</span> <span class="fu">map_dbl</span>(the_quantiles, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]),</span>
+<span id="cb124-22"><a href="some-useful-tricks.html#cb124-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">q_dot_975 =</span> <span class="fu">map_dbl</span>(the_quantiles, <span class="cf">function</span>(x) x[[<span class="dv">3</span>]])) </span>
+<span id="cb124-23"><a href="some-useful-tricks.html#cb124-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-24"><a href="some-useful-tricks.html#cb124-24" aria-hidden="true" tabindex="-1"></a>fk_df</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   mu        st_dev    rv          the_quantiles q_dot_025 q_dot_5 q_dot_975
 ##   &lt;list&gt;    &lt;list&gt;    &lt;list&gt;      &lt;list&gt;            &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
@@ -630,7 +674,7 @@ fk_df</code></pre></div>
 ## 2 &lt;dbl [1]&gt; &lt;dbl [1]&gt; &lt;dbl [100]&gt; &lt;dbl [3]&gt;           8.4    10        11.5
 ## 3 &lt;dbl [1]&gt; &lt;dbl [1]&gt; &lt;dbl [100]&gt; &lt;dbl [3]&gt;          98.1   100       102.</code></pre>
 </div>
-<div id="regular-expressions-basic" class="section level2">
+<div id="regular-expressions-basic" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Regular expressions basic</h2>
 <p><strong>Metacharacters</strong></p>
 <ul>
@@ -645,47 +689,52 @@ fk_df</code></pre></div>
 <li><code>[0-9]</code>: single digit</li>
 <li><code>[a-z]</code>: single lowercase letter</li>
 <li><code>[A-Z]</code>: single uppercase letter</li>
-<li><code>()</code>: extract particular sub string, e.g. <code>(p|P)</code>, which means “p” or “P”</li>
+<li><code>()</code>: extract particular sub string, e.g. <code>(p|P)</code>, which means “p” or “P”</li>
 </ul>
 <p><strong>NB:</strong> Inside a square bracket, a period is a period</p>
 <p><strong>Examples:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
-<span class="kw">library</span>(dplyr)
-
-<span class="co"># task 1 ------------------------------------------------------------------</span>
-## based on: 
-## https://www.r-bloggers.com/regular-expressions-every-r-programmer-should-know/
-
-files =<span class="st"> </span><span class="kw">c</span>(
-  <span class="st">&quot;tmp-project.csv&quot;</span>, <span class="st">&quot;project.csv&quot;</span>, 
-  <span class="st">&quot;project2-csv-specs.csv&quot;</span>, <span class="st">&quot;project2.csv2.specs.xlsx&quot;</span>, 
-  <span class="st">&quot;project_cars.ods&quot;</span>, <span class="st">&quot;project-houses.csv&quot;</span>, 
-  <span class="st">&quot;Project_Trees.csv&quot;</span>,<span class="st">&quot;project-cars.R&quot;</span>,
-  <span class="st">&quot;project-houses.r&quot;</span>, <span class="st">&quot;project-final.xls&quot;</span>, 
-  <span class="st">&quot;Project-final2.xlsx&quot;</span>)
-
-<span class="co"># We want to grab the files “project_cars.ods”, “project-houses.csv” and </span>
-<span class="co"># “Project_Trees.csv”. </span>
-
-(the_flag &lt;-<span class="st"> </span><span class="kw">str_detect</span>(files, <span class="st">&quot;^(P|p)roject(_|-)[a-zA-Z]*</span><span class="ch">\\</span><span class="st">.(ods|csv)$&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="some-useful-tricks.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb126-2"><a href="some-useful-tricks.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb126-3"><a href="some-useful-tricks.html#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-4"><a href="some-useful-tricks.html#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="co"># task 1 ------------------------------------------------------------------</span></span>
+<span id="cb126-5"><a href="some-useful-tricks.html#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="do">## based on: </span></span>
+<span id="cb126-6"><a href="some-useful-tricks.html#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="do">## https://www.r-bloggers.com/regular-expressions-every-r-programmer-should-know/</span></span>
+<span id="cb126-7"><a href="some-useful-tricks.html#cb126-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-8"><a href="some-useful-tricks.html#cb126-8" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb126-9"><a href="some-useful-tricks.html#cb126-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;tmp-project.csv&quot;</span>, <span class="st">&quot;project.csv&quot;</span>, </span>
+<span id="cb126-10"><a href="some-useful-tricks.html#cb126-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;project2-csv-specs.csv&quot;</span>, <span class="st">&quot;project2.csv2.specs.xlsx&quot;</span>, </span>
+<span id="cb126-11"><a href="some-useful-tricks.html#cb126-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;project_cars.ods&quot;</span>, <span class="st">&quot;project-houses.csv&quot;</span>, </span>
+<span id="cb126-12"><a href="some-useful-tricks.html#cb126-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Project_Trees.csv&quot;</span>,<span class="st">&quot;project-cars.R&quot;</span>,</span>
+<span id="cb126-13"><a href="some-useful-tricks.html#cb126-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;project-houses.r&quot;</span>, <span class="st">&quot;project-final.xls&quot;</span>, </span>
+<span id="cb126-14"><a href="some-useful-tricks.html#cb126-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Project-final2.xlsx&quot;</span>)</span>
+<span id="cb126-15"><a href="some-useful-tricks.html#cb126-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-16"><a href="some-useful-tricks.html#cb126-16" aria-hidden="true" tabindex="-1"></a><span class="co"># We want to grab the files “project_cars.ods”, “project-houses.csv” and </span></span>
+<span id="cb126-17"><a href="some-useful-tricks.html#cb126-17" aria-hidden="true" tabindex="-1"></a><span class="co"># “Project_Trees.csv”. </span></span>
+<span id="cb126-18"><a href="some-useful-tricks.html#cb126-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-19"><a href="some-useful-tricks.html#cb126-19" aria-hidden="true" tabindex="-1"></a>(the_flag <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(files, <span class="st">&quot;^(P|p)roject(_|-)[a-zA-Z]*</span><span class="sc">\\</span><span class="st">.(ods|csv)$&quot;</span>))</span></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(the_re &lt;-<span class="st"> </span><span class="kw">str_subset</span>(files, <span class="st">&quot;^(P|p)roject(_|-)[a-zA-Z]*</span><span class="ch">\\</span><span class="st">.(ods|csv)$&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="some-useful-tricks.html#cb128-1" aria-hidden="true" tabindex="-1"></a>(the_re <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(files, <span class="st">&quot;^(P|p)roject(_|-)[a-zA-Z]*</span><span class="sc">\\</span><span class="st">.(ods|csv)$&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;project_cars.ods&quot;   &quot;project-houses.csv&quot; &quot;Project_Trees.csv&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># task 2 ------------------------------------------------------------------</span>
-## remove prefix &quot;U_&quot;
-
-a_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="st">&quot;U_&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="ot">NA</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y =</span> <span class="kw">paste0</span>(<span class="st">&quot;U_&quot;</span>, x)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z =</span> <span class="kw">gsub</span>(<span class="st">&quot;^U_&quot;</span>, <span class="st">&quot;&quot;</span>, y))
-
-
-<span class="co"># task 3 ------------------------------------------------------------------</span>
-## remove suffix &quot;.xlsx&quot;
-
-b_df &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">file_name =</span> files) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_file_name =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.xlsx&quot;</span>, <span class="st">&quot;&quot;</span>, file_name))</code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="some-useful-tricks.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># task 2 ------------------------------------------------------------------</span></span>
+<span id="cb130-2"><a href="some-useful-tricks.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="do">## remove prefix &quot;U_&quot;</span></span>
+<span id="cb130-3"><a href="some-useful-tricks.html#cb130-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-4"><a href="some-useful-tricks.html#cb130-4" aria-hidden="true" tabindex="-1"></a>a_df <span class="ot">&lt;-</span> </span>
+<span id="cb130-5"><a href="some-useful-tricks.html#cb130-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="st">&quot;U_&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-6"><a href="some-useful-tricks.html#cb130-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">paste0</span>(<span class="st">&quot;U_&quot;</span>, x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-7"><a href="some-useful-tricks.html#cb130-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> <span class="fu">gsub</span>(<span class="st">&quot;^U_&quot;</span>, <span class="st">&quot;&quot;</span>, y))</span>
+<span id="cb130-8"><a href="some-useful-tricks.html#cb130-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-9"><a href="some-useful-tricks.html#cb130-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-10"><a href="some-useful-tricks.html#cb130-10" aria-hidden="true" tabindex="-1"></a><span class="co"># task 3 ------------------------------------------------------------------</span></span>
+<span id="cb130-11"><a href="some-useful-tricks.html#cb130-11" aria-hidden="true" tabindex="-1"></a><span class="do">## remove suffix &quot;.xlsx&quot;</span></span>
+<span id="cb130-12"><a href="some-useful-tricks.html#cb130-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-13"><a href="some-useful-tricks.html#cb130-13" aria-hidden="true" tabindex="-1"></a>b_df <span class="ot">&lt;-</span> </span>
+<span id="cb130-14"><a href="some-useful-tricks.html#cb130-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">file_name =</span> files) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-15"><a href="some-useful-tricks.html#cb130-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_file_name =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.xlsx&quot;</span>, <span class="st">&quot;&quot;</span>, file_name))</span></code></pre></div>
+<p><strong>Difference in <code>_.+</code> and <code>_.*</code></strong></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="some-useful-tricks.html#cb131-1" aria-hidden="true" tabindex="-1"></a>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="fu">c</span>(<span class="st">&quot;123_12345&quot;</span>, <span class="st">&quot;_987&quot;</span>, <span class="st">&quot;_&quot;</span>), <span class="st">&quot;_.+&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;_12345&quot; &quot;_987&quot;   NA</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="some-useful-tricks.html#cb133-1" aria-hidden="true" tabindex="-1"></a>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="fu">c</span>(<span class="st">&quot;123_12345&quot;</span>, <span class="st">&quot;_987&quot;</span>, <span class="st">&quot;_&quot;</span>), <span class="st">&quot;_.*&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;_12345&quot; &quot;_987&quot;   &quot;_&quot;</code></pre>
 </div>
 </div>
             </section>
@@ -698,12 +747,13 @@ b_df &lt;-<span class="st"> </span>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -711,12 +761,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -727,7 +777,19 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

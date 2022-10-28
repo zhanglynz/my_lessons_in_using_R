@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>The lessons I learned in using R</title>
-  <meta name="description" content="The lessons I learned in using R">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Big lessons | The lessons I learned in using R</title>
+  <meta name="description" content="2 Big lessons | The lessons I learned in using R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The lessons I learned in using R" />
+  <meta property="og:title" content="2 Big lessons | The lessons I learned in using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,28 +16,32 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The lessons I learned in using R" />
+  <meta name="twitter:title" content="2 Big lessons | The lessons I learned in using R" />
   
   
   
 
-<meta name="author" content="Lingyun Zhang">
+<meta name="author" content="Lingyun Zhang" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="small-lessons.html">
-<link rel="next" href="some-useful-tricks.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="small-lessons.html"/>
+<link rel="next" href="some-useful-tricks.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -46,45 +49,76 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 </head>
 
@@ -99,7 +133,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="small-lessons.html"><a href="small-lessons.html"><i class="fa fa-check"></i><b>1</b> Small lessons</a><ul>
+<li class="chapter" data-level="1" data-path="small-lessons.html"><a href="small-lessons.html"><i class="fa fa-check"></i><b>1</b> Small lessons</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="small-lessons.html"><a href="small-lessons.html#always-use-stringsasfactors-false"><i class="fa fa-check"></i><b>1.1</b> Always use <code>stringsAsFactors = FALSE</code></a></li>
 <li class="chapter" data-level="1.2" data-path="small-lessons.html"><a href="small-lessons.html#always-use-na.rm-true"><i class="fa fa-check"></i><b>1.2</b> Always use <code>na.rm = TRUE</code></a></li>
 <li class="chapter" data-level="1.3" data-path="small-lessons.html"><a href="small-lessons.html#always-use-seq_along"><i class="fa fa-check"></i><b>1.3</b> Always use <code>seq_along</code></a></li>
@@ -111,18 +146,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.9" data-path="small-lessons.html"><a href="small-lessons.html#using-tidyrspread"><i class="fa fa-check"></i><b>1.9</b> using <code>tidyr::spread()</code></a></li>
 <li class="chapter" data-level="1.10" data-path="small-lessons.html"><a href="small-lessons.html#prefix-and-suffix"><i class="fa fa-check"></i><b>1.10</b> Prefix and suffix</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a><ul>
+<li class="chapter" data-level="2" data-path="big-lessons.html"><a href="big-lessons.html"><i class="fa fa-check"></i><b>2</b> Big lessons</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="big-lessons.html"><a href="big-lessons.html#counting-is-not-that-easy"><i class="fa fa-check"></i><b>2.1</b> Counting is not that easy</a></li>
 <li class="chapter" data-level="2.2" data-path="big-lessons.html"><a href="big-lessons.html#joining-tables-be-careful"><i class="fa fa-check"></i><b>2.2</b> Joining tables, be careful!</a></li>
 <li class="chapter" data-level="2.3" data-path="big-lessons.html"><a href="big-lessons.html#using-group_by-and-arrange"><i class="fa fa-check"></i><b>2.3</b> Using <code>group_by</code> and <code>arrange</code></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a><ul>
+<li class="chapter" data-level="3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html"><i class="fa fa-check"></i><b>3</b> Some useful tricks</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#removing-rows-under-constraints"><i class="fa fa-check"></i><b>3.1</b> Removing rows under constraints</a></li>
 <li class="chapter" data-level="3.2" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#dplyr-programming"><i class="fa fa-check"></i><b>3.2</b> dplyr programming</a></li>
 <li class="chapter" data-level="3.3" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#using-apply-and-map-family-of-functions"><i class="fa fa-check"></i><b>3.3</b> Using <code>apply</code> and <code>map</code> family of functions</a></li>
 <li class="chapter" data-level="3.4" data-path="some-useful-tricks.html"><a href="some-useful-tricks.html#regular-expressions-basic"><i class="fa fa-check"></i><b>3.4</b> Regular expressions basic</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tricky-plotting.html"><a href="tricky-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricky plotting</a><ul>
+<li class="chapter" data-level="4" data-path="tricky-plotting.html"><a href="tricky-plotting.html"><i class="fa fa-check"></i><b>4</b> Tricky plotting</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="tricky-plotting.html"><a href="tricky-plotting.html#bar-charts"><i class="fa fa-check"></i><b>4.1</b> Bar charts</a></li>
 </ul></li>
 </ul>
@@ -142,15 +180,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="big-lessons" class="section level1">
+<div id="big-lessons" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Big lessons</h1>
-<div id="counting-is-not-that-easy" class="section level2">
+<div id="counting-is-not-that-easy" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Counting is not that easy</h2>
-<p>Finding number of rows under some constraints and then getting some a ratio is a common practice for an analyst who is doing official statistics. But sometimes counting is not that easy when <strong>a record is not the same as a response</strong>. An example is that people are allowed to make multiple choices. We use the following fake data to tell two stories.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-the_url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/LarryZhang2016/Data/master/fake_data_4_counting_example.csv&quot;</span>
-fake_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(the_url)
-<span class="kw">print.data.frame</span>(fake_data)</code></pre></div>
+<p>Finding number of rows under some constraints and then getting some a ratio is
+a common practice for an analyst who is doing official statistics. But sometimes counting is not that easy when <strong>a record is not the same as a response</strong>. An example is that people are allowed to make multiple choices. We use the following fake data to tell two stories.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="big-lessons.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb46-2"><a href="big-lessons.html#cb46-2" aria-hidden="true" tabindex="-1"></a>the_url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/LarryZhang2016/Data/master/fake_data_4_counting_example.csv&quot;</span></span>
+<span id="cb46-3"><a href="big-lessons.html#cb46-3" aria-hidden="true" tabindex="-1"></a>fake_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(the_url)</span>
+<span id="cb46-4"><a href="big-lessons.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print.data.frame</span>(fake_data)</span></code></pre></div>
 <pre><code>##    ID Q_NO answers
 ## 1   1    1       C
 ## 2   1    2       B
@@ -191,44 +230,45 @@ fake_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(the_url
 ## 37  5    4       B
 ## 38  5    4       C
 ## 39  5    4       A</code></pre>
-<p><strong>Story 1:</strong> Find the number of respondents. The code below is <strong>wrong</strong>!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-no_of_respondents &lt;-
-<span class="st">  </span>fake_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>())
-
-<span class="kw">print.data.frame</span>(no_of_respondents)</code></pre></div>
+<p><strong>Story 1:</strong> Find the number of respondents.
+The code below is <strong>wrong</strong>!</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="big-lessons.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb48-2"><a href="big-lessons.html#cb48-2" aria-hidden="true" tabindex="-1"></a>no_of_respondents <span class="ot">&lt;-</span></span>
+<span id="cb48-3"><a href="big-lessons.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  fake_data <span class="sc">%&gt;%</span> </span>
+<span id="cb48-4"><a href="big-lessons.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb48-5"><a href="big-lessons.html#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="big-lessons.html#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print.data.frame</span>(no_of_respondents)</span></code></pre></div>
 <pre><code>##    n
 ## 1 39</code></pre>
 <p>Here we should use <code>n_distinct()</code>, and the correct code is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-no_of_respondents &lt;-
-<span class="st">  </span>fake_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n_distinct</span>(ID))
-
-<span class="kw">print.data.frame</span>(no_of_respondents)</code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="big-lessons.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb50-2"><a href="big-lessons.html#cb50-2" aria-hidden="true" tabindex="-1"></a>no_of_respondents <span class="ot">&lt;-</span></span>
+<span id="cb50-3"><a href="big-lessons.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  fake_data <span class="sc">%&gt;%</span> </span>
+<span id="cb50-4"><a href="big-lessons.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(ID))</span>
+<span id="cb50-5"><a href="big-lessons.html#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="big-lessons.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print.data.frame</span>(no_of_respondents)</span></code></pre></div>
 <pre><code>##   n
 ## 1 5</code></pre>
 <p><strong>Story 2:</strong> Tally the data with one dimension be Question-Number and the other dimension be Answers, and then create another table, which shows the proportions of people made the choice.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">no_of_people_choose_A_4_Q1 &lt;-
-<span class="st">  </span>fake_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(Q_NO, answers) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">spread</span>(<span class="dt">key =</span> answers, <span class="dt">value =</span> n)
-
-<span class="kw">print.data.frame</span>(no_of_people_choose_A_4_Q1)</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="big-lessons.html#cb52-1" aria-hidden="true" tabindex="-1"></a>no_of_people_choose_A_4_Q1 <span class="ot">&lt;-</span></span>
+<span id="cb52-2"><a href="big-lessons.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  fake_data <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="big-lessons.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Q_NO, answers) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-4"><a href="big-lessons.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb52-5"><a href="big-lessons.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">spread</span>(<span class="at">key =</span> answers, <span class="at">value =</span> n)</span>
+<span id="cb52-6"><a href="big-lessons.html#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="big-lessons.html#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print.data.frame</span>(no_of_people_choose_A_4_Q1)</span></code></pre></div>
 <pre><code>##   Q_NO A B C
 ## 1    1 4 2 3
 ## 2    2 5 3 2
 ## 3    3 3 3 2
 ## 4    4 5 3 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">proportion_table &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(no_of_people_choose_A_4_Q1, 
-         <span class="dt">A =</span> A <span class="op">/</span><span class="st"> </span>no_of_respondents<span class="op">$</span>n,
-         <span class="dt">B =</span> B <span class="op">/</span><span class="st"> </span>no_of_respondents<span class="op">$</span>n,
-         <span class="dt">C =</span> C <span class="op">/</span><span class="st"> </span>no_of_respondents<span class="op">$</span>n) 
-
-<span class="kw">print.data.frame</span>(proportion_table)</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="big-lessons.html#cb54-1" aria-hidden="true" tabindex="-1"></a>proportion_table <span class="ot">&lt;-</span> </span>
+<span id="cb54-2"><a href="big-lessons.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(no_of_people_choose_A_4_Q1, </span>
+<span id="cb54-3"><a href="big-lessons.html#cb54-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">A =</span> A <span class="sc">/</span> no_of_respondents<span class="sc">$</span>n,</span>
+<span id="cb54-4"><a href="big-lessons.html#cb54-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">B =</span> B <span class="sc">/</span> no_of_respondents<span class="sc">$</span>n,</span>
+<span id="cb54-5"><a href="big-lessons.html#cb54-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">C =</span> C <span class="sc">/</span> no_of_respondents<span class="sc">$</span>n) </span>
+<span id="cb54-6"><a href="big-lessons.html#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="big-lessons.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print.data.frame</span>(proportion_table)</span></code></pre></div>
 <pre><code>##   Q_NO   A   B   C
 ## 1    1 0.8 0.4 0.6
 ## 2    2 1.0 0.6 0.4
@@ -236,13 +276,13 @@ no_of_respondents &lt;-
 ## 4    4 1.0 0.6 0.8</code></pre>
 <p>Note that the denominator should be <strong>5</strong> instead of <strong>39</strong>.</p>
 </div>
-<div id="joining-tables-be-careful" class="section level2">
+<div id="joining-tables-be-careful" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Joining tables, be careful!</h2>
 <p>When the values for one key variable are not unique, we must pay more attention to what we get from joining two tables – sometimes it’s not really what we want.</p>
 <p><strong>Example 1:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-(a_table &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="big-lessons.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb56-2"><a href="big-lessons.html#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="big-lessons.html#cb56-3" aria-hidden="true" tabindex="-1"></a>(a_table <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   x         y
 ##   &lt;chr&gt; &lt;int&gt;
@@ -251,7 +291,7 @@ no_of_respondents &lt;-
 ## 3 c         3
 ## 4 d         4
 ## 5 e         5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(b_table &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>)))</code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="big-lessons.html#cb58-1" aria-hidden="true" tabindex="-1"></a>(b_table <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 1
 ##   x    
 ##   &lt;chr&gt;
@@ -261,7 +301,7 @@ no_of_respondents &lt;-
 ## 4 a    
 ## 5 c</code></pre>
 <p>Here we want to use <code>x</code> as the key and find “overlap” between <code>a_table</code> and <code>b_table</code>. We may write down</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(c_table &lt;-<span class="st"> </span><span class="kw">inner_join</span>(a_table, b_table, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="big-lessons.html#cb60-1" aria-hidden="true" tabindex="-1"></a>(c_table <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(a_table, b_table, <span class="at">by =</span> <span class="st">&quot;x&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   x         y
 ##   &lt;chr&gt; &lt;int&gt;
@@ -271,15 +311,15 @@ no_of_respondents &lt;-
 ## 4 b         2
 ## 5 c         3</code></pre>
 <p>but this code does not give the result that we want. so the correct code should be</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp_b_table &lt;-
-<span class="st">  </span>b_table <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">distinct</span>(x)
-  
-c_table &lt;-
-<span class="st">  </span>a_table <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">inner_join</span>(temp_b_table, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)
-
-(c_table)</code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="big-lessons.html#cb62-1" aria-hidden="true" tabindex="-1"></a>temp_b_table <span class="ot">&lt;-</span></span>
+<span id="cb62-2"><a href="big-lessons.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  b_table <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="big-lessons.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(x)</span>
+<span id="cb62-4"><a href="big-lessons.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-5"><a href="big-lessons.html#cb62-5" aria-hidden="true" tabindex="-1"></a>c_table <span class="ot">&lt;-</span></span>
+<span id="cb62-6"><a href="big-lessons.html#cb62-6" aria-hidden="true" tabindex="-1"></a>  a_table <span class="sc">%&gt;%</span> </span>
+<span id="cb62-7"><a href="big-lessons.html#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(temp_b_table, <span class="at">by =</span> <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb62-8"><a href="big-lessons.html#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="big-lessons.html#cb62-9" aria-hidden="true" tabindex="-1"></a>(c_table)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   x         y
 ##   &lt;chr&gt; &lt;int&gt;
@@ -287,11 +327,11 @@ c_table &lt;-
 ## 2 b         2
 ## 3 c         3</code></pre>
 <p>Or, we can use <code>semi_join()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_table &lt;-
-<span class="st">  </span>a_table <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">semi_join</span>(b_table, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)
-
-(c_table)</code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="big-lessons.html#cb64-1" aria-hidden="true" tabindex="-1"></a>c_table <span class="ot">&lt;-</span></span>
+<span id="cb64-2"><a href="big-lessons.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  a_table <span class="sc">%&gt;%</span> </span>
+<span id="cb64-3"><a href="big-lessons.html#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(b_table, <span class="at">by =</span> <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb64-4"><a href="big-lessons.html#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="big-lessons.html#cb64-5" aria-hidden="true" tabindex="-1"></a>(c_table)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   x         y
 ##   &lt;chr&gt; &lt;int&gt;
@@ -299,14 +339,14 @@ c_table &lt;-
 ## 2 b         2
 ## 3 c         3</code></pre>
 <p><strong>Example 2:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_table &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-d_table &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>), 
-                      <span class="dt">z =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>)
-
-e_table &lt;-
-<span class="st">  </span>a_table <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">left_join</span>(d_table, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>) 
-(e_table)</code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="big-lessons.html#cb66-1" aria-hidden="true" tabindex="-1"></a>a_table <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb66-2"><a href="big-lessons.html#cb66-2" aria-hidden="true" tabindex="-1"></a>d_table <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>), </span>
+<span id="cb66-3"><a href="big-lessons.html#cb66-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">z =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb66-4"><a href="big-lessons.html#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="big-lessons.html#cb66-5" aria-hidden="true" tabindex="-1"></a>e_table <span class="ot">&lt;-</span></span>
+<span id="cb66-6"><a href="big-lessons.html#cb66-6" aria-hidden="true" tabindex="-1"></a>  a_table <span class="sc">%&gt;%</span> </span>
+<span id="cb66-7"><a href="big-lessons.html#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(d_table, <span class="at">by =</span> <span class="st">&quot;x&quot;</span>) </span>
+<span id="cb66-8"><a href="big-lessons.html#cb66-8" aria-hidden="true" tabindex="-1"></a>(e_table)</span></code></pre></div>
 <pre><code>## # A tibble: 7 x 3
 ##   x         y     z
 ##   &lt;chr&gt; &lt;int&gt; &lt;int&gt;
@@ -319,26 +359,26 @@ e_table &lt;-
 ## 7 e         5    NA</code></pre>
 <p>Note that values of <code>x</code> in <code>e_table</code> are not unique and <code>e_table</code> has more rows than <code>a_table</code>.</p>
 </div>
-<div id="using-group_by-and-arrange" class="section level2">
+<div id="using-group_by-and-arrange" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Using <code>group_by</code> and <code>arrange</code></h2>
 <p>“grouped <code>arrange()</code> is the same as ungrouped; unless you set <code>.by_group = TRUE</code>, in which case it orders first by the grouping variables” (<a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">Introduction to dplyr</a>)</p>
 <p>The following example shows the difference between using <code>.by_group = TRUE</code> and withou using it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x)
-{n &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(x))
- <span class="cf">if</span>(n <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">return</span>(x)
- L &lt;-<span class="st"> </span><span class="kw">length</span>(x)
- x[(L<span class="op">+</span><span class="dv">1</span><span class="op">-</span>n)<span class="op">:</span>L] &lt;-<span class="st"> </span>x[L<span class="op">-</span>n] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)
- <span class="kw">return</span>(x)
-}
-
-temp_v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])
-L &lt;-<span class="st"> </span><span class="kw">length</span>(temp_v)
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> temp_v,
-                 <span class="dt">y =</span> <span class="kw">c</span>((L<span class="op">-</span><span class="dv">3</span>)<span class="op">:</span><span class="dv">1</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))
-
-(df)</code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="big-lessons.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb68-2"><a href="big-lessons.html#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="big-lessons.html#cb68-3" aria-hidden="true" tabindex="-1"></a>my_func <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
+<span id="cb68-4"><a href="big-lessons.html#cb68-4" aria-hidden="true" tabindex="-1"></a>{n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb68-5"><a href="big-lessons.html#cb68-5" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span>(n <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(x)</span>
+<span id="cb68-6"><a href="big-lessons.html#cb68-6" aria-hidden="true" tabindex="-1"></a> L <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb68-7"><a href="big-lessons.html#cb68-7" aria-hidden="true" tabindex="-1"></a> x[(L<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>n)<span class="sc">:</span>L] <span class="ot">&lt;-</span> x[L<span class="sc">-</span>n] <span class="sc">+</span> (<span class="dv">1</span><span class="sc">:</span>n)</span>
+<span id="cb68-8"><a href="big-lessons.html#cb68-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(x)</span>
+<span id="cb68-9"><a href="big-lessons.html#cb68-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-10"><a href="big-lessons.html#cb68-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-11"><a href="big-lessons.html#cb68-11" aria-hidden="true" tabindex="-1"></a>temp_v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb68-12"><a href="big-lessons.html#cb68-12" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">length</span>(temp_v)</span>
+<span id="cb68-13"><a href="big-lessons.html#cb68-13" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> temp_v,</span>
+<span id="cb68-14"><a href="big-lessons.html#cb68-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> <span class="fu">c</span>((L<span class="dv">-3</span>)<span class="sc">:</span><span class="dv">1</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb68-15"><a href="big-lessons.html#cb68-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-16"><a href="big-lessons.html#cb68-16" aria-hidden="true" tabindex="-1"></a>(df)</span></code></pre></div>
 <pre><code>##    x  y
 ## 1  a  7
 ## 2  b  6
@@ -350,19 +390,19 @@ df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 ## 8  a NA
 ## 9  b NA
 ## 10 c NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># frist attempt, without using .by_group = TRUE</span>
-<span class="co"># surprisingly (goo!) we can get what we want</span>
-df_new_<span class="dv">1</span> &lt;-<span class="st"> </span>
-<span class="st">  </span>df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(x) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(y,) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z =</span> <span class="kw">my_func</span>(y))
-
-(df_new_<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="big-lessons.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># frist attempt, without using .by_group = TRUE</span></span>
+<span id="cb70-2"><a href="big-lessons.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="co"># surprisingly (goo!) we can get what we want</span></span>
+<span id="cb70-3"><a href="big-lessons.html#cb70-3" aria-hidden="true" tabindex="-1"></a>df_new_1 <span class="ot">&lt;-</span> </span>
+<span id="cb70-4"><a href="big-lessons.html#cb70-4" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb70-5"><a href="big-lessons.html#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-6"><a href="big-lessons.html#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y,) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-7"><a href="big-lessons.html#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> <span class="fu">my_func</span>(y))</span>
+<span id="cb70-8"><a href="big-lessons.html#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-9"><a href="big-lessons.html#cb70-9" aria-hidden="true" tabindex="-1"></a>(df_new_1)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 3
 ## # Groups:   x [3]
 ##    x         y     z
-##    &lt;fct&gt; &lt;int&gt; &lt;int&gt;
+##    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
 ##  1 c         1     1
 ##  2 b         2     2
 ##  3 c         3     3
@@ -373,19 +413,19 @@ df_new_<span class="dv">1</span> &lt;-<span class="st"> </span>
 ##  8 a        NA     8
 ##  9 b        NA     7
 ## 10 c        NA     4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># second try, using .by_group = TRUE</span>
-<span class="co"># this is the code supposed to be</span>
-df_new_<span class="dv">2</span> &lt;-<span class="st"> </span>
-<span class="st">  </span>df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(x) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(y, <span class="dt">.by_group =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z =</span> <span class="kw">my_func</span>(y))
-
-(df_new_<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="big-lessons.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># second try, using .by_group = TRUE</span></span>
+<span id="cb72-2"><a href="big-lessons.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this is the code supposed to be</span></span>
+<span id="cb72-3"><a href="big-lessons.html#cb72-3" aria-hidden="true" tabindex="-1"></a>df_new_2 <span class="ot">&lt;-</span> </span>
+<span id="cb72-4"><a href="big-lessons.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb72-5"><a href="big-lessons.html#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-6"><a href="big-lessons.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-7"><a href="big-lessons.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> <span class="fu">my_func</span>(y))</span>
+<span id="cb72-8"><a href="big-lessons.html#cb72-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-9"><a href="big-lessons.html#cb72-9" aria-hidden="true" tabindex="-1"></a>(df_new_2)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 3
 ## # Groups:   x [3]
 ##    x         y     z
-##    &lt;fct&gt; &lt;int&gt; &lt;int&gt;
+##    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
 ##  1 a         5     5
 ##  2 a         7     7
 ##  3 a        NA     8
@@ -396,7 +436,7 @@ df_new_<span class="dv">2</span> &lt;-<span class="st"> </span>
 ##  8 c         1     1
 ##  9 c         3     3
 ## 10 c        NA     4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(<span class="kw">arrange</span>(df_new_<span class="dv">1</span>, x), df_new_<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="big-lessons.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">arrange</span>(df_new_1, x), df_new_2)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -410,12 +450,13 @@ df_new_<span class="dv">2</span> &lt;-<span class="st"> </span>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -423,12 +464,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -439,7 +480,19 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

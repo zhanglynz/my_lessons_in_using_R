@@ -828,6 +828,13 @@ b_df <-
 ```
 
 
+**Difference in `_.+` and `_.*`**
+```{r}
+(stringr::str_extract(c("123_12345", "_987", "_"), "_.+"))
+(stringr::str_extract(c("123_12345", "_987", "_"), "_.*"))
+```
+
+
 
 
 
